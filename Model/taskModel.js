@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const {sequelize, Sequelize} = require('../config/DBconfig');
+const User = require('./userModel');
 
 const Task = sequelize.define('Task', {
     task_id: {
@@ -21,7 +22,10 @@ const Task = sequelize.define('Task', {
     task_due: {
         type: DataTypes.DATE,
         defaultValue: new Date(Date.now() + 24 * 60 * 60 * 60 * 1000) //1 day
-    }
+    },
+    user_id: DataTypes.UUID,
 })
+
+
 
 module.exports = Task;
