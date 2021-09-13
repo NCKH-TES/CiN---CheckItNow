@@ -8,14 +8,33 @@ const User = sequelize.define('User', {
         primaryKey: true,
         allowNull: false,
     },
-    user_name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    provider: DataTypes.STRING,
+    user_name: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+    },
+    email: {
+        type: DataTypes.STRING(50),
+        unique: true,
+        allowNull: false,
+    },
+    password: {
+        type: DataTypes.STRING(200),
+        defaultValue: process.env.DEFAULT_PASSWORD_GOOGLE,
+        allowNull: false,
+    },
+    provider: {
+        type: DataTypes.STRING(10),
+        allowNull: false,
+        defaultValue: 'system'
+    },
 });
 
 User.hasMany(Task, {
-    foreignKey: 'user_id',
+    foreignKey: {
+      name: 'user_id',
+      allowNull: false
+    },
+    onDelete: 'CASCADE'
 });
 //Task.belongsTo(User);
 module.exports = User;

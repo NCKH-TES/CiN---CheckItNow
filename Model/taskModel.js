@@ -8,19 +8,25 @@ const Task = sequelize.define('Task', {
         primaryKey: true,
         allowNull: false,
     },
-    task_name: DataTypes.STRING,
+    task_name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     task_description: DataTypes.TEXT,
     priority: {
         type: DataTypes.ENUM('low', 'medium', 'high'),
-        defaultValue: 'low'
+        defaultValue: 'low',
+        allowNull: false,
     },
     completed: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
+        allowNull: false,
     },
     task_due: {
         type: DataTypes.DATE,
-        defaultValue: new Date(Date.now() + 24 * 60 * 60 * 60 * 1000) //1 day
+        defaultValue: new Date(Date.now() + 24 * 60 * 60 * 60 * 1000), //1 day
+        allowNull: false,
     }
 })
 
