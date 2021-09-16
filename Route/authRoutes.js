@@ -49,6 +49,7 @@ authRouter.get('/error', (req, res) => {
     res.send('Login fail!!');
 })
 
-
+authRouter.post('/register', authController.register)
+authRouter.post('/', authController.loginBySystemAccount)
 
 module.exports = authRouter;
