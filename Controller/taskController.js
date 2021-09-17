@@ -19,10 +19,11 @@ exports.createTask = catchAsync(async (req, res, next) => {
 
 //GET LIST [FILTER: SORT, SEARCH]
 exports.getTaskList = catchAsync(async (req, res, next) => {
+    const { page = 1, perPage = 12 } = req.body;
     const sortBy = fillObj(req.body);
     sortBy.unshift(['completed', 'ASC']);
     console.log(sortBy);
-    const taskList = await Task.findAll({
+    const taskList = await Task.findAndCountAll({
         order: sortBy, //SORT
         where: {
             user_id: req.user.user_id, //SELECT USER'S TASK
@@ -38,14 +39,17 @@ exports.getTaskList = catchAsync(async (req, res, next) => {
                     }
                 }
             ]
-        }
-            
+        },
+        limit: perPage,
+        offset: (page - 1) * perPage  
     });
     res.status(200).json({
         status: 'Success',
-        result: taskList.length,
         data:{
-            taskList,
+            count: taskList.count,
+            tasks: taskList.rows,
+            totalPages: Math.ceil(taskList.count / perPage),
+            currentPage: page
         },
     });
 })
@@ -73,7 +77,6 @@ exports.updateTask = catchAsync(async (req, res, next) => {
     if(task[0] < 1) return next(new AppError( 'Task not found', 404));
     res.status(200).json({
         status: 'Success',
-        task,
     });
 });
 

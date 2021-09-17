@@ -24,13 +24,38 @@ exports.login = catchAsync(async (req, res, next) => {
             provider: req.user.provider,
         }
     })
+ 
     const token = signToken(user.user_id);
     res.status(200).json({
         status: 'Success',
-        token, 
+        user: { ...user.dataValues, token, password: undefined }, 
     })
 });
 
+// Register new user - [POST] /api/auth/register
+exports.register = catchAsync(async (req, res, next) => {
+  const { dataValues: newUser } = await User.create(req.body);
+  const token = signToken(newUser.user_id);
+  res.status(200).json({
+      status: 'Success',
+      user: { ...newUser, token, password: undefined }, 
+  })
+});
+
+// Login by system account - [POST] /api/auth
+exports.loginBySystemAccount = catchAsync(async (req, res, next) => {
+  const { email, password } = req.body;
+  const existUser = await User.findOne({ where: { email } });
+  if(existUser && await existUser.matchPassword(password)) {
+    const userData = existUser.dataValues;
+    const token = signToken(userData.user_id);
+    res.status(200).json({
+      status: 'Success',
+      user: {...userData, token, password: undefined }, 
+    })
+  } else 
+    return next(new AppError('Email or Password is invalid!', 401));
+});
 
 exports.protect = catchAsync(async (req, res, next) => {
     let token;

@@ -23,7 +23,7 @@ app.use(express.json());
 //DEV LOGGING
 app.use(morgan('dev'));
 //CREATE NEW SESSION
-app.use(session({ secret: process.env.SESSION_SECRET }));
+app.use(session({ secret: 'cats' }));
 //INIT PASSPORT JS
 app.use(passport.initialize());
 app.use(passport.session());
@@ -46,6 +46,8 @@ sequelize.sync()
         console.log(err);
     })
 
+//Send Email at 7 AM
+require('./utils/remind');
     
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
