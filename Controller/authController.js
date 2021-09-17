@@ -53,10 +53,8 @@ exports.loginBySystemAccount = catchAsync(async (req, res, next) => {
       status: 'Success',
       user: {...userData, token, password: undefined }, 
     })
-  } else {
-    res.status(401);
-    throw new Error('Not found user!')
-  }
+  } else 
+    return next(new AppError('Email or Password is invalid!', 401));
 });
 
 exports.protect = catchAsync(async (req, res, next) => {
