@@ -47,7 +47,7 @@ sequelize.sync()
     })
 
 //Send Email at 7 AM
-require('./utils/remind');
+require('./utils/remind')();
     
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
