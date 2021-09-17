@@ -45,7 +45,6 @@ exports.getTaskList = catchAsync(async (req, res, next) => {
     });
     res.status(200).json({
         status: 'Success',
-        result: taskList.length,
         data:{
             count: taskList.count,
             tasks: taskList.rows,
@@ -78,7 +77,6 @@ exports.updateTask = catchAsync(async (req, res, next) => {
     if(task[0] < 1) return next(new AppError( 'Task not found', 404));
     res.status(200).json({
         status: 'Success',
-        task,
     });
 });
 
