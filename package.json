@@ -9,8 +9,7 @@
 		"server": "nodemon server/app.js",
 		"client": "npm start --prefix client",
 		"dev": "concurrently \"npm run server\" \"npm run client\"",
-		"postinstall": "husky install",
-		"prepare": "husky install"
+		"prepare": "npx husky install"
 	},
 	"lint-staged": {
 		"*.{js,jsx}": "npx prettier --write"
