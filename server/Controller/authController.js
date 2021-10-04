@@ -68,7 +68,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   const decode = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
   const user = await User.findByPk(decode.id);
   //Check user exist;
-  if (!user) return next(new AppError(404, 'User not belong exist'));
+  if (!user) return next(new AppError('User not belong exist', 404));
   //Send current user
   req.user = user;
   next();
