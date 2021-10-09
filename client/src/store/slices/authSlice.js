@@ -35,6 +35,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
+      console.log('OK LOG');
       localStorage.removeItem('userInfo');
       return {};
     },

@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
-import { Input } from 'antd';
-import { Modal } from 'antd';
+import { Input, Dropdown, Modal } from 'antd';
 
 export const Wrapper = styled.form`
   min-height: 100vh;
@@ -22,10 +21,10 @@ export const Img = styled.img`
   margin-top: -20px;
 `;
 
-export const Text = styled.p`
+export const Text = styled.span`
   font-weight: 600;
   font-size: 22px;
-  line-height: 30px;
+  cursor: ${({ $cursor }) => $cursor || 'auto'};
   color: #000000;
   font-family: 'Nunito';
 
@@ -86,7 +85,11 @@ export const SearchIcon = styled.img`
   top: 14px;
   right: 16px;
 `;
+
 export const Icon1 = styled.img`
+  width: ${({ $width }) => $width || '100%'}px;
+  height: ${({ $height }) => $height || '100%'}px;
+  cursor: ${({ $cursor }) => $cursor || 'auto'};
   padding-right: 3px;
 `;
 export const Sort = styled.div`
@@ -100,7 +103,7 @@ export const Text2 = styled.div`
   font-weight: 600;
   cursor: pointer;
 `;
-export const Select = styled.div`
+export const Option = styled.div`
   display: flex;
   justify-content: space-between;
 `;
@@ -121,4 +124,11 @@ export const ModalFiled = styled(Modal)`
   .ant-modal-footer {
     padding-bottom: 15px;
   }
+`;
+
+export const Author = styled(Dropdown)``;
+
+export const UserGroup = styled.div`
+  display: flex;
+  align-items: center;
 `;
