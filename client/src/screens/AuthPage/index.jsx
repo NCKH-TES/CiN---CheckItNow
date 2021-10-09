@@ -6,8 +6,8 @@ import imgLogin from '../../assets/images/login.svg';
 import ActivePass from '../../assets/images/active.svg';
 import logoGoogle from '../../assets/images/google.png';
 import { useForm } from 'react-hook-form';
-import { Col } from 'antd';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Col } from 'antd';
 import RegisterModal from './RegisterModal';
 import * as yup from 'yup';
 import { login, reset_auth } from '../../store/slices/authSlice';
@@ -96,6 +96,7 @@ export default function Auth({ history }) {
               <S.CheckBoxField
                 name="remember"
                 type="checkbox"
+                checked
                 {...register('remember')}
               ></S.CheckBoxField>
               <span>Remember me</span>

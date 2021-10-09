@@ -4,8 +4,8 @@ import logo from '../../assets/images/logo.svg';
 import { useSelector } from 'react-redux';
 import { message } from 'antd';
 import * as Icon from '../../assets/icons';
-import { Modal, Button } from 'antd';
-import AddTask from '../../components/AddTask';
+import { Button } from 'antd';
+import AddTaskModal from '../../components/AddTask';
 
 export default function Index({ history }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -26,10 +26,6 @@ export default function Index({ history }) {
     setIsModalVisible(true);
   };
 
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
-
   const handleCancel = () => {
     setIsModalVisible(false);
   };
@@ -45,6 +41,7 @@ export default function Index({ history }) {
             <S.InputFiled
               onChange={(e) => console.log(e.target.value)}
               placeholder="Search task"
+              $height={50}
             />
             <S.SearchIcon src={Icon.search} />
           </div>
@@ -71,20 +68,11 @@ export default function Index({ history }) {
       </S.Content>
 
       {/* add task modal */}
-      <Modal
-        visible={isModalVisible}
-        onCancel={handleCancel}
-        footer={[
-          <Button key="2" onClick={handleCancel}>
-            Cancel
-          </Button>,
-          <Button key="3" type="primary" onClick={handleOk}>
-            Add Task
-          </Button>,
-        ]}
-      >
-        <AddTask />
-      </Modal>
+      <AddTaskModal
+        isModalVisible={isModalVisible}
+        showModal={showModal}
+        handleCancel={handleCancel}
+      />
     </S.Wrapper>
   );
 }

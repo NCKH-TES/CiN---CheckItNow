@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
 import { Input } from 'antd';
-export const Wrapper = styled.div`
+import { Modal } from 'antd';
+
+export const Wrapper = styled.form`
   min-height: 100vh;
   background-color: #e4e7f2;
   padding: 40px 90px;
@@ -67,10 +69,17 @@ export const Story = styled.div`
   height: 235px;
 `;
 export const InputFiled = styled(Input)`
-  height: 50px;
   padding-left: 20px;
   margin-bottom: 23px;
   border-radius: 20px;
+  width: ${({ $width }) => $width || '100%'}px;
+  height: ${({ $height }) => $height || '100%'}px;
+  &::placeholder {
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 20px;
+    color: #949090;
+  }
 `;
 export const SearchIcon = styled.img`
   position: absolute;
@@ -97,4 +106,19 @@ export const Select = styled.div`
 `;
 export const AddTask = styled.div`
   display: flex;
+`;
+export const ModalFiled = styled(Modal)`
+  .ant-modal-content {
+    border-radius: 25px;
+    width: 635px;
+    background-color: #eceef5;
+  }
+  .ant-modal-body {
+    display: flex;
+    justify-content: center;
+    padding: 15px 0 10px 0px;
+  }
+  .ant-modal-footer {
+    padding-bottom: 15px;
+  }
 `;
