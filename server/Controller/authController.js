@@ -31,7 +31,7 @@ exports.login = catchAsync(async (req, res, next) => {
   });
 });
 
-// Register new user - [POST] /api/auth/register
+// Register new user - [POST] /api/v1/auth/register
 exports.register = catchAsync(async (req, res, next) => {
   const { dataValues: newUser } = await User.create(req.body);
   const token = signToken(newUser.user_id);
@@ -41,7 +41,7 @@ exports.register = catchAsync(async (req, res, next) => {
   });
 });
 
-// Login by system account - [POST] /api/auth
+// Login by system account - [POST] /api/v1/auth
 exports.loginBySystemAccount = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
   const existUser = await User.findOne({ where: { email } });
@@ -68,7 +68,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   const decode = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
   const user = await User.findByPk(decode.id);
   //Check user exist;
-  if (!user) return next(new AppError(404, 'User not belong exist'));
+  if (!user) return next(new AppError('User not belong exist', 404));
   //Send current user
   req.user = user;
   next();
