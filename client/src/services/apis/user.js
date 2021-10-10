@@ -2,11 +2,11 @@ import request from '../request';
 
 const UserApi = {
   login: (info) => {
-    const url = `/api/auth`;
+    const url = `auth`;
     return request.post(url, info);
   },
   register: (info) => {
-    const url = `/api/auth/register`;
+    const url = `/auth/register`;
     return request.post(url, info);
   },
 };

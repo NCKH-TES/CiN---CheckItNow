@@ -4,7 +4,7 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const authController = require('../Controller/authController');
 
-//[URL] /api/auth/google
+//[URL] /api/v1/auth/google
 
 passport.serializeUser(function (user, done) {
   done(null, user);
@@ -20,7 +20,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
-      callbackURL: 'http://localhost:5000/api/auth/google/callback',
+      callbackURL: 'http://localhost:5000/api/v1/auth/google/callback',
       passReqToCallback: true,
     },
     function (request, accessToken, refreshToken, profile, done) {
@@ -40,8 +40,8 @@ authRouter.get(
 authRouter.get(
   '/google/callback',
   passport.authenticate('google', {
-    successRedirect: '/api/auth/success',
-    failureRedirect: '/api/auth/error',
+    successRedirect: '/api/v1/auth/success',
+    failureRedirect: '/api/v1/auth/error',
   })
 );
 
