@@ -32,7 +32,6 @@ export default function Index({ history }) {
     </Menu>
   );
   useEffect(() => {
-    console.log(userInfo);
     if (!userInfo) {
       history.push('/login');
     } else {

@@ -14,17 +14,14 @@ const AddTask = (props) => {
   const [priority, setPriority] = useState('');
 
   function onChangeDate(date, dateString) {
-    console.log(date, dateString);
     setDate(dateString);
   }
   function onChangeTime(time, timeString) {
     setTime(timeString);
-    console.log(time, timeString);
   }
 
   function handleSelectPriority(value) {
     setPriority(value);
-    console.log(`selected ${value}`);
   }
 
   //  hàm handler create task
@@ -36,8 +33,6 @@ const AddTask = (props) => {
       values.task_due = date;
     }
     if (priority) values.priority = priority;
-    console.log('Success:', values);
-
     // test api
     await request.post('/api/v1/task', values);
   };
