@@ -5,6 +5,7 @@ const dotenv = require('dotenv').config({ path: './.env' });
 const sequelize = require('./config/DBconfig').sequelize;
 const session = require('express-session');
 const passport = require('passport');
+const cors = require('cors');
 
 //CONNECT TO DATABASE
 sequelize
@@ -27,6 +28,7 @@ app.use(session({ secret: 'cats' }));
 //INIT PASSPORT JS
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cors());
 
 app.get('/', (req, res) => {
   res.send('HOME PAGE');

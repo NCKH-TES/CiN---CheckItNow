@@ -34,7 +34,7 @@ const AddTask = (props) => {
     }
     if (priority) values.priority = priority;
     // test api
-    await request.post('/api/v1/task', values);
+    // await request.post('/api/v1/task', values);
   };
 
   return (
@@ -58,7 +58,7 @@ const AddTask = (props) => {
             {date && (
               <S.SelectTime
                 onChange={onChangeTime}
-                defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
+                defaultValue={moment('00:00:00', 'HH:mm:ss')}
               />
             )}
 
