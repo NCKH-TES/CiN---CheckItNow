@@ -10,4 +10,15 @@ const request = axios.create({
   paramsSerializer: (params) => queryString.stringify(params),
 });
 
+request.interceptors.request.use(async (config) => {
+  const userInfo = localStorage.getItem('userInfo')
+    ? JSON.parse(localStorage.getItem('userInfo'))
+    : null;
+  if (userInfo) {
+    const token = await userInfo.token;
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 export default request;
