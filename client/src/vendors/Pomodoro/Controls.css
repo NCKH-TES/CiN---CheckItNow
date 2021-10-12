@@ -1,0 +1,67 @@
+.Controls,
+.Controls div {
+  width: 150px;
+  display: flex;
+  justify-content: center;
+}
+
+.Controls button {
+  min-height: 60px;
+  border-radius: 40px;
+  border: 0;
+  flex: 1;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  outline: 0;
+  transition: all 0.3s;
+  padding: 0;
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 25px;
+}
+
+.Controls button.start {
+  background: #9bb2ee;
+  color: #fff;
+  padding: 17px 31px;
+}
+
+.Controls button.start:hover {
+  background: #5677c9;
+}
+
+.Controls button.reset {
+  background: transparent;
+  flex: 0;
+  margin-right: 10px;
+  color: #888;
+  font-size: 16px;
+}
+
+.Controls button.reset:hover {
+  color: #666;
+}
+
+.Controls button.pause {
+  background: #eea73c;
+  color: #fff;
+  font-size: 14px;
+}
+
+.Controls button.pause:hover {
+  background: #d3912f;
+}
+
+.Controls button.resume {
+  background: #91b62d;
+  color: #fff;
+  font-size: 14px;
+}
+
+.Controls button.resume:hover {
+  background: #7d9e23;
+}

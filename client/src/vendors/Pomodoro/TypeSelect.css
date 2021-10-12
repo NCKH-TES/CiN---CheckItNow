@@ -1,0 +1,45 @@
+.TypeSelect {
+  /* width: 400px; */
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 500px) {
+  .TypeSelect {
+    width: 100%;
+  }
+}
+
+.TypeSelect button {
+  flex: 1;
+  white-space: nowrap;
+  border: none;
+  border-right: none;
+  background: transparent;
+  padding: 0;
+  color: #6f6a6a;
+  outline: 0;
+  cursor: pointer;
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 25px;
+  transition: all 0.2s;
+}
+
+.TypeSelect button:first-child {
+  border-radius: 5px 0 0 5px;
+  text-align: start;
+}
+
+.TypeSelect button:last-child {
+  border-radius: 0 5px 5px 0;
+  text-align: end;
+}
+
+.TypeSelect button.active {
+  color: #556a9e;
+  font-weight: 700;
+}
