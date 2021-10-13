@@ -65,7 +65,6 @@ export const Story = styled.div`
   background-color: #f3f5fa;
   border-radius: 25px;
   margin-top: 70px;
-  height: 235px;
 `;
 export const InputFiled = styled(Input)`
   padding-left: 20px;
