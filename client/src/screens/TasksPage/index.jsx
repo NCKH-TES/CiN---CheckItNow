@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { message, Menu } from 'antd';
 import * as Icon from '../../assets/icons';
 import AddTaskModal from '../../components/AddTask';
+import Pomodoro from '../../vendors/Pomodoro';
 import { logout } from '../../store/slices/authSlice';
 import StoryQuotes from '../../components/StoryQuotes';
 const { Option } = S.Author;
@@ -100,7 +101,9 @@ export default function Index({ history }) {
           </S.Option>
         </S.Left>
         <S.Right>
-          <S.Time></S.Time>
+          <S.Time>
+            <Pomodoro />
+          </S.Time>
           <S.Story>
             <StoryQuotes />
           </S.Story>
