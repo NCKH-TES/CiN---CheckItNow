@@ -162,7 +162,7 @@ export default function Index({ history }) {
 
           <S.ListTask>
             {listTask?.map((item) => (
-              <S.Task key={item?.task_id}>
+              <S.Task key={item?.task_id} $done={item?.completed}>
                 <S.CheckB
                   checked={item?.completed}
                   onChange={(e) => onChange(e, item)}
@@ -178,7 +178,17 @@ export default function Index({ history }) {
                   <S.TextTask $isSmall>{item?.task_description}</S.TextTask>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
                     <img src={lock} alt="" />
-                    <S.TextTime>{item?.task_due}</S.TextTime>
+                    <S.TextTime
+                      $color={
+                        item?.priority === 'low'
+                          ? '#20d408'
+                          : item?.priority === 'medium'
+                          ? '#dfab03'
+                          : '#ff0000'
+                      }
+                    >
+                      {item?.task_due}
+                    </S.TextTime>
                   </div>
                 </div>
                 <Tooltip placement="right" title={content} color="#FFFFFF">

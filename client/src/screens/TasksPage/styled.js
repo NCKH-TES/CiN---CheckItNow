@@ -142,13 +142,14 @@ export const ListTask = styled.div`
 export const Task = styled.div`
   width: 100%;
   padding: 15px;
-  background: #FFFFFF;
+  background: ${({$done}) => $done ? '#E4E7F2' : '#FFFFFF'};
   border: 1px solid #E4E7F2;
   box-sizing: border-box;
   border-radius: 25px;
   margin-top: 20px;
   display: flex;
   position: relative;
+
 `;
 
 export const CheckB = styled(Checkbox)`
@@ -172,7 +173,7 @@ export const TextTask = styled.p`
 export const TextTime = styled.p`
   font-weight: 300;
   font-size: 12px;
-  color: #F82E2E;
+  color: ${({ $color }) => $color || 'black'};
   margin: 0px;
   padding-left: 5px;
 `;
