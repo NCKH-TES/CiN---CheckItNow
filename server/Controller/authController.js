@@ -31,7 +31,7 @@ exports.login = catchAsync(async (req, res, next) => {
   });
 });
 
-// Register new user - [POST] /api/auth/register
+// Register new user - [POST] /api/v1/auth/register
 exports.register = catchAsync(async (req, res, next) => {
   const { dataValues: newUser } = await User.create(req.body);
   const token = signToken(newUser.user_id);
@@ -41,7 +41,7 @@ exports.register = catchAsync(async (req, res, next) => {
   });
 });
 
-// Login by system account - [POST] /api/auth
+// Login by system account - [POST] /api/v1/auth
 exports.loginBySystemAccount = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
   const existUser = await User.findOne({ where: { email } });

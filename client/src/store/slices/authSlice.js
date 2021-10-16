@@ -15,11 +15,16 @@ export const login = createAsyncThunk(
 // POST : Register
 export const registerApi = createAsyncThunk(
   'api/register',
-  async ({ user_name, email, password }, thunkAPI) => {
+  async ({ user_name, email, password }, { rejectWithValue }) => {
     console.log(user_name, email, password);
-    const { data } = await userAPI.register({ user_name, email, password });
-    localStorage.setItem('userInfo', JSON.stringify(data.user));
-    return data.user;
+    try {
+      const { data } = await userAPI.register({ user_name, email, password });
+      localStorage.setItem('userInfo', JSON.stringify(data.user));
+      return data;
+    } catch (err) {
+      //err.response.data - contains error returned from server
+      return rejectWithValue(err.response.data.err.errors[0].message);
+    }
   }
 );
 
@@ -30,6 +35,7 @@ const userInfoFromStorage = localStorage.getItem('userInfo')
 const initialState = {
   userInfo: userInfoFromStorage,
 };
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -67,7 +73,7 @@ export const authSlice = createSlice({
     },
     [registerApi.rejected]: (state, action) => {
       state.loading = false;
-      state.errorRegister = 'Email already exists';
+      state.error = action.payload;
     },
   },
 });
