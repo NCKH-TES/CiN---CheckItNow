@@ -87,6 +87,20 @@ export default function Index({ history }) {
     </div>
   );
 
+  const onChange = (e, item) => {
+    setItiem(item);
+    if (item?.task_id) {
+      task
+        .updateTaskApi(item?.task_id, { completed: e.target.checked })
+        .then(() => {
+          dispatch(getListTask({ page, perPage }));
+        })
+        .catch((err) => {
+          toast('Failure...');
+        });
+    }
+  };
+
   return (
     <S.Wrapper>
       <S.Header>
@@ -149,9 +163,18 @@ export default function Index({ history }) {
           <S.ListTask>
             {listTask?.map((item) => (
               <S.Task key={item?.task_id}>
-                <S.CheckB />
+                <S.CheckB
+                  checked={item?.completed}
+                  onChange={(e) => onChange(e, item)}
+                />
                 <div style={{ marginLeft: '12px' }}>
-                  <S.TextTask>{item?.task_name}</S.TextTask>
+                  <S.TextTask
+                    style={{
+                      textDecoration: item?.completed && 'line-through',
+                    }}
+                  >
+                    {item?.task_name}
+                  </S.TextTask>
                   <S.TextTask $isSmall>{item?.task_description}</S.TextTask>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
                     <img src={lock} alt="" />

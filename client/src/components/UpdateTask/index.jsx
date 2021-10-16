@@ -33,19 +33,19 @@ const UpdateTask = (props) => {
     task
       .updateTaskApi(props?.item?.task_id, {
         ...values,
-        task_due: date,
-        priority,
-        completed: false,
+        task_due: `${date} ${time}` || props?.item?.task_due,
+        priority: priority || props?.item?.priority,
+        completed: props?.item?.completed,
       })
       .then(() => {
         dispatch(getListTask({ page: props.page, perPage: props.perPage }));
         handleCancel();
         toast('Successfully!');
-        form.resetFields();
       })
       .catch((err) => {
         toast('Failure...');
       });
+    // console.log(values, date, time, props?.item?.priority);
   };
 
   return (
@@ -53,17 +53,10 @@ const UpdateTask = (props) => {
       <S.FormAntd
         onFinish={onFinish}
         autoComplete="off"
-        form={form}
-        fields={[
-          {
-            name: ['task_name'],
-            value: props?.item?.task_name,
-          },
-          {
-            name: ['task_description'],
-            value: props?.item?.task_description,
-          },
-        ]}
+        initialValues={{
+          ['task_name']: props?.item?.task_name,
+          ['task_description']: props?.item?.task_description,
+        }}
       >
         <S.Wrapper>
           <S.FormAntd.Item

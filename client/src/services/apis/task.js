@@ -16,9 +16,9 @@ const tasksApi = {
     return request.delete(url);
   },
 
-  updateTaskApi: (id) => {
+  updateTaskApi: (id, data) => {
     const url = `/task/${id}`;
-    return request.patch(url);
+    return request.patch(url, data);
   }
 };
 
