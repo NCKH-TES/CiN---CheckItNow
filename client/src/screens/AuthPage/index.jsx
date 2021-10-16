@@ -4,16 +4,17 @@ import * as S from './style';
 import logo from '../../assets/images/logo.svg';
 import imgLogin from '../../assets/images/login.svg';
 import ActivePass from '../../assets/images/active.svg';
-import logoGoogle from '../../assets/images/google.png';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Col } from 'antd';
 import RegisterModal from './RegisterModal';
 import * as yup from 'yup';
-import { login, reset_auth } from '../../store/slices/authSlice';
+import { login, reset_auth, loginGoogle } from '../../store/slices/authSlice';
 import Loader from '../../components/Loader';
 import { message } from 'antd';
 import { Alert } from 'antd';
+import { GoogleLogin } from 'react-google-login';
+import userAPI from '../../services/apis/user';
 
 const schema = yup
   .object({
@@ -28,6 +29,7 @@ export default function Auth({ history }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const auth = useSelector((state) => state.auth);
   const { loading, error, userInfo } = auth;
+  const googleUser = {};
   const errorLogin = () => {
     message.error(error);
   };
@@ -56,13 +58,36 @@ export default function Auth({ history }) {
     setIsModalVisible(false);
   };
 
+  const clientId =
+    '1085000780034-joge7b8ov31n4eqb9gcct6dqm8m3dq10.apps.googleusercontent.com';
+  const responseGoogle = async (res) => {
+    googleUser.user_name = res.profileObj.name;
+    googleUser.email = res.profileObj.email;
+    googleUser.image = res.profileObj.imageUrl;
+    googleUser.token = res.tokenId;
+    googleUser.user_id = res.googleId;
+    console.log(res);
+    await dispatch(loginGoogle(googleUser));
+  };
+
+  const loginGoogleHandler = async () => {
+    const newWindow = await window.open(
+      'http://localhost:5000/api/v1/auth/google',
+      '_blank',
+      'width:500,height:600'
+    );
+
+    console.log(newWindow);
+  };
+
   useEffect(() => {
     if (userInfo) {
       history.push('/');
     } else {
       history.push('/login');
     }
-  }, [userInfo, history]);
+  }, [userInfo, history, dispatch]);
+
   return (
     <S.Wrapper>
       {userInfo && loginSuccess()}
@@ -108,9 +133,8 @@ export default function Auth({ history }) {
             )}
             <S.Login type="submit" value="Login"></S.Login>
             <S.OR>OR</S.OR>
-            <S.LoginGG>
-              <S.LogoGoogle src={logoGoogle} />
-              <S.textGG>Login with Google</S.textGG>
+            <S.LoginGG onClick={loginGoogleHandler}>
+              <p>login google</p>
             </S.LoginGG>
             <S.Register>
               <span>Don’t have an Account yet? </span>

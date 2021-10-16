@@ -11,6 +11,19 @@ export const login = createAsyncThunk(
   }
 );
 
+// export const loginGoogle = createAsyncThunk(
+//   'api/google',
+//   async ({ res }, thunkAPI) => {
+//     const googleUser = {};
+//     // googleUser.user_name = res.profileObj.name;
+//     // googleUser.email = res.profileObj.email;
+//     // googleUser.image = res.profileObj.imageUrl;
+//     // googleUser.token = res.tokenId;
+//     // googleUser.user_id = res.googleId;
+//     localStorage.setItem('userInfo', JSON.stringify(googleUser));
+//   }
+// );
+
 //API
 // POST : Register
 export const registerApi = createAsyncThunk(
@@ -48,6 +61,11 @@ export const authSlice = createSlice({
     reset_auth: (state) => {
       state.error = null;
     },
+    loginGoogle: (state, action) => {
+      state.userInfo = action.payload;
+      localStorage.setItem('userInfo', JSON.stringify(action.payload));
+      return state;
+    },
   },
   extraReducers: {
     // login list
@@ -79,6 +97,6 @@ export const authSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { logout, reset_auth } = authSlice.actions;
+export const { logout, reset_auth, loginGoogle } = authSlice.actions;
 
 export default authSlice.reducer;

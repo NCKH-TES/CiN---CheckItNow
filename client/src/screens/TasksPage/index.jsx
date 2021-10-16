@@ -6,7 +6,6 @@ import { message, Menu } from 'antd';
 import * as Icon from '../../assets/icons';
 import AddTaskModal from '../../components/AddTask';
 import { logout } from '../../store/slices/authSlice';
-const { Option } = S.Author;
 
 export default function Index({ history }) {
   const dispatch = useDispatch();
@@ -28,7 +27,9 @@ export default function Index({ history }) {
   };
   const menuUser = (
     <Menu>
-      <Menu.Item onClick={handlerLogout}>Logout</Menu.Item>
+      <Menu.Item onClick={handlerLogout} key="">
+        Logout
+      </Menu.Item>
     </Menu>
   );
   useEffect(() => {
@@ -46,7 +47,7 @@ export default function Index({ history }) {
         {userInfo && (
           <S.UserGroup>
             <S.Icon1
-              src={Icon.user}
+              src={userInfo.image ? userInfo.image : Icon.user}
               $width="32"
               $height="30"
               style={{ marginRight: '15px' }}

@@ -33,8 +33,8 @@ const AddTask = (props) => {
       values.task_due = date;
     }
     if (priority) values.priority = priority;
-    // test api
-    // await request.post('/api/v1/task', values);
+    console.log(values);
+    await request.post('/task', values);
   };
 
   return (

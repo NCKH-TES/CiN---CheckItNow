@@ -108,8 +108,8 @@ export default function Auth(props) {
         <S.Login type="submit" value="Register"></S.Login>
         <S.OR>OR</S.OR>
         <S.LoginGG>
-          <S.LogoGoogle src={logoGoogle} />
-          <S.textGG>Register with Google</S.textGG>
+          {/* <S.LogoGoogle src={logoGoogle} />
+          <S.textGG>Register with Google</S.textGG> */}
         </S.LoginGG>
       </S.FormRegister>
     </Modal>

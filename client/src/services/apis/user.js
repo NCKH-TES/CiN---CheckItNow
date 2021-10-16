@@ -11,6 +11,10 @@ const UserApi = {
     console.log({ url, SERVER_API });
     return request.post(url, info);
   },
+  loginGoogle: () => {
+    const url = `auth/google`;
+    return request.get(url);
+  },
 };
 
 export default UserApi;

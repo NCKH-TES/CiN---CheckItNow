@@ -104,28 +104,15 @@ export const Login = styled.input`
     color: white;
   }
 `;
-export const LoginGG = styled.div`
-  display: flex;
-  color: #665f5f;
-  font-size: 15px;
-  cursor: pointer;
-`;
-export const textGG = styled.div`
-  padding-top: 3px;
-`;
-export const LogoGoogle = styled.img`
-  width: 25px;
-  height: 25px;
-  margin-right: 10px;
-  margin-bottom: 20px;
-`;
+export const LoginGG = styled.div``;
+
 export const Google = styled.div`
   font-weight: bold;
   padding-left: 8px;
 `;
 export const OR = styled.p`
   color: #665f5f75;
-  margin-top: 10px;
+  margin: 12px 0;
 `;
 export const Register = styled.div`
   margin-top: 15px;
