@@ -70,14 +70,13 @@ export default function Auth({ history }) {
     await dispatch(loginGoogle(googleUser));
   };
 
-  const loginGoogleHandler = async () => {
-    const newWindow = await window.open(
+  const loginGoogleHandler = () => {
+    const a = window.open(
       'http://localhost:5000/api/v1/auth/google',
       '_blank',
       'width:500,height:600'
     );
-
-    console.log(newWindow);
+    console.log(a.opener);
   };
 
   useEffect(() => {
