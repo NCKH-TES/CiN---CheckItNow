@@ -39,7 +39,7 @@ exports.getTaskList = catchAsync(async (req, res, next) => {
         },
       ],
     },
-    limit: perPage,
+    limit: perPage*1,
     offset: (page - 1) * perPage,
   });
 
@@ -58,17 +58,43 @@ exports.getTaskList = catchAsync(async (req, res, next) => {
   });
 });
 
-//GET TASK DETAIL
-exports.getTask = catchAsync(async (req, res, next) => {
-  const task = await Task.findByPk(req.params.id);
-  if (!task) return next(new AppError('Task not found', 404));
+//params: completed = true || false
+exports.filter = (catchAsync(async (req, res, next) => {
+  const { page = 1, perPage = 12, completed} = req.query
+  console.log(req.query);
+  const taskList = await Task.findAndCountAll({
+    where: {
+      user_id: req.user.user_id,
+      completed: completed === 'true' ? true : false,
+    },
+    limit: perPage*1,
+    offset: (page - 1) * perPage,
+  })
+  taskList.rows.forEach(task => {
+    task.dataValues.task_due = moment(task.dataValues.task_due).format('YYYY-MM-DD h:mm:ss a');
+  })
   res.status(200).json({
     status: 'Success',
     data: {
-      task,
+      count: taskList.count,
+      tasks: taskList.rows,
+      totalPages: Math.ceil(taskList.count / perPage),
+      currentPage: page,
     },
   });
-});
+}));
+
+// //GET TASK DETAIL
+// exports.getTask = catchAsync(async (req, res, next) => {
+//   const task = await Task.findByPk(req.params.id);
+//   if (!task) return next(new AppError('Task not found', 404));
+//   res.status(200).json({
+//     status: 'Success',
+//     data: {
+//       task,
+//     },
+//   });
+// });
 
 //UPDATE TASK BY ID
 exports.updateTask = catchAsync(async (req, res, next) => {
