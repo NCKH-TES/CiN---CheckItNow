@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { Input, Dropdown, Modal } from 'antd';
+import { Input, Dropdown, Modal, Checkbox } from 'antd';
 
 export const Wrapper = styled.form`
   min-height: 100vh;
@@ -38,6 +38,7 @@ export const Text = styled.span`
 export const Content = styled.div`
   display: flex;
   margin-top: 20px;
+  height: 700px;
 `;
 
 export const Left = styled.div`
@@ -46,6 +47,7 @@ export const Left = styled.div`
   padding: 25px 40px;
   margin-right: 90px;
   border-radius: 25px;
+  position: relative;
 `;
 
 export const Right = styled.div`
@@ -65,7 +67,6 @@ export const Story = styled.div`
   background-color: #f3f5fa;
   border-radius: 25px;
   margin-top: 70px;
-  height: 235px;
 `;
 export const InputFiled = styled(Input)`
   padding-left: 20px;
@@ -131,4 +132,54 @@ export const Author = styled(Dropdown)``;
 export const UserGroup = styled.div`
   display: flex;
   align-items: center;
+`;
+
+export const ListTask = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const Task = styled.div`
+  width: 100%;
+  padding: 15px;
+  background: ${({$done}) => $done ? '#E4E7F2' : '#FFFFFF'};
+  border: 1px solid #E4E7F2;
+  box-sizing: border-box;
+  border-radius: 25px;
+  margin-top: 20px;
+  display: flex;
+  position: relative;
+
+`;
+
+export const CheckB = styled(Checkbox)`
+`;
+
+export const TextTask = styled.p`
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: #000000;
+
+  ${({$isSmall})=> $isSmall && css`
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 19px;
+    color: #6F6A6A;
+    margin-top: -15px;
+  `}
+`;
+
+export const TextTime = styled.p`
+  font-weight: 300;
+  font-size: 12px;
+  color: ${({ $color }) => $color || 'black'};
+  margin: 0px;
+  padding-left: 5px;
+`;
+
+export const Image = styled.img`
+  position: absolute;
+  right: 20px;
+  cursor: pointer;
 `;

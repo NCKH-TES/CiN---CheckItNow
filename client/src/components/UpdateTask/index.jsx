@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const { Option } = S.SelectFiled;
 
-const AddTask = (props) => {
+const UpdateTask = (props) => {
   const dispatch = useDispatch();
   const { handleCancel, isModalVisible } = props;
   const [date, setDate] = useState('');
@@ -31,26 +31,33 @@ const AddTask = (props) => {
 
   const onFinish = async (values) => {
     task
-      .createTaskApi({
+      .updateTaskApi(props?.item?.task_id, {
         ...values,
-        task_due: `${date} ${time}`,
-        priority,
-        completed: false,
+        task_due: `${date} ${time}` || props?.item?.task_due,
+        priority: priority || props?.item?.priority,
+        completed: props?.item?.completed,
       })
       .then(() => {
         dispatch(getListTask({ page: props.page, perPage: props.perPage }));
         handleCancel();
         toast('Successfully!');
-        form.resetFields();
       })
       .catch((err) => {
         toast('Failure...');
       });
+    // console.log(values, date, time, props?.item?.priority);
   };
 
   return (
     <S.ModalTask footer="" visible={isModalVisible} onCancel={handleCancel}>
-      <S.FormAntd onFinish={onFinish} autoComplete="off" form={form}>
+      <S.FormAntd
+        onFinish={onFinish}
+        autoComplete="off"
+        initialValues={{
+          ['task_name']: props?.item?.task_name,
+          ['task_description']: props?.item?.task_description,
+        }}
+      >
         <S.Wrapper>
           <S.FormAntd.Item
             name="task_name"
@@ -75,7 +82,7 @@ const AddTask = (props) => {
             )}
 
             <S.SelectFiled
-              defaultValue="Priority"
+              defaultValue={props.item?.priority}
               style={{ width: 120 }}
               onChange={handleSelectPriority}
             >
@@ -91,12 +98,12 @@ const AddTask = (props) => {
             Cancel
           </S.ButtonFiled>
           <S.ButtonFiled
-            $width={90}
+            $width={110}
             type="primary"
             htmlType="submit"
             style={{ marginLeft: '10px' }}
           >
-            Add task
+            Update task
           </S.ButtonFiled>
         </S.ButtonWrapper>
       </S.FormAntd>
@@ -104,4 +111,4 @@ const AddTask = (props) => {
   );
 };
 
-export default AddTask;
+export default UpdateTask;

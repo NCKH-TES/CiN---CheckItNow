@@ -3,11 +3,10 @@ const { Op } = require('sequelize');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/AppError');
 const fillObj = require('../utils/fillObj');
-
+const moment = require('moment');
 //CREATE NEW TASK
 exports.createTask = catchAsync(async (req, res, next) => {
   req.body.user_id = req.user.user_id;
-  console.log(req.body);
   const task = await Task.create(req.body);
   res.status(200).json({
     status: 'Success',
@@ -43,6 +42,11 @@ exports.getTaskList = catchAsync(async (req, res, next) => {
     limit: perPage,
     offset: (page - 1) * perPage,
   });
+
+  taskList.rows.forEach(task => {
+    task.dataValues.task_due = moment(task.dataValues.task_due).format('YYYY-MM-DD h:mm:ss a');
+  })
+  
   res.status(200).json({
     status: 'Success',
     data: {

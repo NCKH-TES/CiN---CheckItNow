@@ -27,10 +27,6 @@ exports.login = catchAsync(async (req, res, next) => {
   const token = signToken(user.user_id);
   const saveLocal = { ...user.dataValues, token };
 
-  // unless localStorage?
-  // {LocalStorage} = require('../')  # require('node-localstorage')
-  // localStorage = new LocalStorage('./scratch')
-
   localStorage.setItem('userInfo', saveLocal);
   res.status(200).json({
     status: 'Success',

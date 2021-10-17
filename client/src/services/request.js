@@ -21,4 +21,20 @@ request.interceptors.request.use(async (config) => {
   return config;
 });
 
+export const unsplashApi = axios.create({
+  baseURL: 'https://api.unsplash.com/search/photos',
+  headers: {
+    Authorization: 'Client-ID 7MIYwi-TxGNNuPO0Dldu2HYqJDy34TcXYW54wze-Z9M',
+  },
+  params: {
+    page: 1,
+    per_page: 4,
+    orientation: 'landscape',
+  },
+});
+
+export const quotesApi = axios.create({
+  baseURL: 'https://quotes.rest',
+});
+
 export default request;
