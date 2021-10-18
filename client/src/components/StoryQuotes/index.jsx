@@ -4,14 +4,14 @@ import * as S from './styles';
 
 const StoryQuotes = () => {
   const [images, setImages] = useState([]);
-  const [quote, setQuote] = useState(null);
+  const [quotes, setQuotes] = useState(null);
 
   useEffect(() => {
-    const getQuote = async () => {
-      const { data } = await quotesApi.get('/qod?language=en');
-      setQuote(data.contents.quotes[0]);
+    const getQuotes = async () => {
+      const { data } = await quotesApi.get('/');
+      setQuotes(data?.results[0]);
     };
-    getQuote();
+    getQuotes();
   }, []);
 
   useEffect(() => {
@@ -23,10 +23,10 @@ const StoryQuotes = () => {
       let urls = results.map((image) => image.urls.regular);
       setImages(urls);
     };
-    if (quote) {
-      getImages(quote.category);
+    if (quotes) {
+      getImages(quotes?.tags[0]);
     }
-  }, [quote]);
+  }, [quotes]);
 
   return (
     <S.StoryWrapper>
@@ -36,8 +36,8 @@ const StoryQuotes = () => {
           <S.Image src={image} key={image} alt="" />
         ))}
       </S.Carousel>
-      <S.QuoteContent>{`"${quote?.quote}"`}</S.QuoteContent>
-      <S.QuoteAuthor> {`- ${quote?.author}`}</S.QuoteAuthor>
+      <S.QuoteContent>{`"${quotes?.quote}"`}</S.QuoteContent>
+      <S.QuoteAuthor> {`- ${quotes?.author}`}</S.QuoteAuthor>
     </S.StoryWrapper>
   );
 };
