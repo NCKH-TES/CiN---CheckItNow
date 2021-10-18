@@ -28,22 +28,8 @@ export const unsplashApi = axios.create({
   },
   params: {
     page: 1,
-    per_page: 4,
+    per_page: 16,
     orientation: 'landscape',
-  },
-});
-
-export const quotesApi = axios.create({
-  baseURL: 'https://api.paperquotes.com/apiv1/quotes',
-  headers: {
-    Authorization: 'Token 52cc20ad6a71a7e6ec2d03e97f25ea32039a5ce2',
-  },
-  params: {
-    tags: 'motivation, inspirational, sunset',
-    order: '-likes',
-    maxlength: 60,
-    minlength: 40,
-    lang: 'en',
   },
 });
 

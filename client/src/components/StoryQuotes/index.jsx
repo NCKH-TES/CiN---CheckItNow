@@ -1,27 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { unsplashApi, quotesApi } from '../../services/request';
+import { unsplashApi } from '../../services/request';
 import { ReactComponent as ChevronLeft } from '../../assets/icons/chevron-left.svg';
 import { ReactComponent as ChevronRight } from '../../assets/icons/chevron-right.svg';
+import quotes from '../../constants/quotes';
 import * as S from './styles';
 
 const StoryQuotes = () => {
   const [images, setImages] = useState([]);
-  const [quotes, setQuotes] = useState([]);
-  const [curQuotes, setCurQuotes] = useState(null);
+  const [curQuotes, setCurQuotes] = useState(quotes[0]);
 
   const handleChangeCurQuote = () => {
     const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
     setCurQuotes(randomQuote);
   };
-
-  useEffect(() => {
-    const getQuotes = async () => {
-      const { data } = await quotesApi.get('/');
-      setQuotes(data?.results);
-      setCurQuotes(data?.results[0]);
-    };
-    getQuotes();
-  }, []);
 
   useEffect(() => {
     const getImages = async (query) => {
@@ -32,10 +23,8 @@ const StoryQuotes = () => {
       let urls = results.map((image) => image.urls.regular);
       setImages(urls);
     };
-    if (curQuotes) {
-      getImages(curQuotes?.tags[0]);
-    }
-  }, [curQuotes]);
+    getImages('sunset');
+  }, []);
 
   return (
     <S.StoryWrapper>
@@ -48,7 +37,7 @@ const StoryQuotes = () => {
         dots={false}
         nextArrow={<ChevronRight />}
         prevArrow={<ChevronLeft />}
-        afterChange={handleChangeCurQuote}
+        beforeChange={handleChangeCurQuote}
       >
         {images.map((image) => (
           <S.Image src={image} key={image} alt="" />
