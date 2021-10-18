@@ -21,28 +21,38 @@ exports.getTaskList = catchAsync(async (req, res, next) => {
   const { page = 1, perPage = 12 } = req.body;
   const sortBy = fillObj(req.body);
   sortBy.unshift(['completed', 'ASC']);
-  console.log(sortBy);
+
+  //condition
+  const where = {
+    user_id: req.user.user_id, //SELECT USER'S TASK
+    [Op.or]: [
+      {
+        task_name: {
+          [Op.substring]: req.body.search || '', //SEARCH NAME
+        },
+      },
+      {
+        task_description: {
+          [Op.substring]: req.body.search || '', //SEARCH DESCRIPTION
+        },
+      },
+    ],
+  }
+  
+  //filter 
+  if(req.body.filter !== undefined)
+    where.completed = req.body.filter;
+  
+  console.log(where);
+
   const taskList = await Task.findAndCountAll({
     order: sortBy, //SORT
-    where: {
-      user_id: req.user.user_id, //SELECT USER'S TASK
-      [Op.or]: [
-        {
-          task_name: {
-            [Op.substring]: req.body.search || '', //SEARCH NAME
-          },
-        },
-        {
-          task_description: {
-            [Op.substring]: req.body.search || '', //SEARCH DESCRIPTION
-          },
-        },
-      ],
-    },
-    limit: perPage,
+    where, 
+    limit: perPage*1,
     offset: (page - 1) * perPage,
   });
 
+  //Convert time
   taskList.rows.forEach(task => {
     task.dataValues.task_due = moment(task.dataValues.task_due).format('YYYY-MM-DD h:mm:ss a');
   })
@@ -54,18 +64,6 @@ exports.getTaskList = catchAsync(async (req, res, next) => {
       tasks: taskList.rows,
       totalPages: Math.ceil(taskList.count / perPage),
       currentPage: page,
-    },
-  });
-});
-
-//GET TASK DETAIL
-exports.getTask = catchAsync(async (req, res, next) => {
-  const task = await Task.findByPk(req.params.id);
-  if (!task) return next(new AppError('Task not found', 404));
-  res.status(200).json({
-    status: 'Success',
-    data: {
-      task,
     },
   });
 });

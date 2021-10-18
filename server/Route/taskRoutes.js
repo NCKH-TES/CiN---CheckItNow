@@ -18,11 +18,13 @@ taskRouter.delete('/:id', authController.protect, taskController.deleteTask);
 taskRouter.patch('/:id', authController.protect, taskController.updateTask);
 
 //TASK DETAIL
-taskRouter.get(
-  '/:id',
-  authController.protect,
-  authController.protect,
-  taskController.getTask
-);
+// taskRouter.get(
+//   '/:id',
+//   authController.protect,
+//   taskController.getTask
+// );
+
+//Filter
+// taskRouter.get('/', authController.protect, taskController.filter);
 
 module.exports = taskRouter;

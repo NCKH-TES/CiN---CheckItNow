@@ -25,9 +25,16 @@ exports.login = catchAsync(async (req, res, next) => {
   });
 
   const token = signToken(user.user_id);
-  const saveLocal = { ...user.dataValues, token };
+  const cookieOptions = {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: false,
+  };
 
-  localStorage.setItem('userInfo', saveLocal);
+  res.cookie('token', token, cookieOptions);
+  res.cookie('user_name', user.dataValues.user_name, cookieOptions);
+
   res.status(200).json({
     status: 'Success',
     user: { ...user.dataValues, token, password: undefined },

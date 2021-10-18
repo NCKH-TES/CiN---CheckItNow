@@ -28,13 +28,9 @@ export const unsplashApi = axios.create({
   },
   params: {
     page: 1,
-    per_page: 4,
+    per_page: 16,
     orientation: 'landscape',
   },
-});
-
-export const quotesApi = axios.create({
-  baseURL: 'https://quotes.rest',
 });
 
 export default request;
