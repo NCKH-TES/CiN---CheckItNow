@@ -60,7 +60,12 @@ const AddTask = (props) => {
           >
             <S.Name placeholder="Name of the tasks..." />
           </S.FormAntd.Item>
-          <hr />
+          <div
+            style={{
+              borderTop: '1px solid #2520204f ',
+              margin: '0 20px ',
+            }}
+          ></div>
           <S.FormAntd.Item name="task_description">
             <S.Describe placeholder="Description..." />
           </S.FormAntd.Item>

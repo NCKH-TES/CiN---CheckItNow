@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { unsplashApi, quotesApi } from '../../services/request';
+import { unsplashApi } from '../../services/request';
+import { ReactComponent as ChevronLeft } from '../../assets/icons/chevron-left.svg';
+import { ReactComponent as ChevronRight } from '../../assets/icons/chevron-right.svg';
+import quotes from '../../constants/quotes';
 import * as S from './styles';
 
 const StoryQuotes = () => {
   const [images, setImages] = useState([]);
-  const [quote, setQuote] = useState(null);
+  const [curQuotes, setCurQuotes] = useState(quotes[0]);
 
-  useEffect(() => {
-    const getQuote = async () => {
-      const { data } = await quotesApi.get('/qod?language=en');
-      setQuote(data.contents.quotes[0]);
-    };
-    getQuote();
-  }, []);
+  const handleChangeCurQuote = () => {
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    setCurQuotes(randomQuote);
+  };
 
   useEffect(() => {
     const getImages = async (query) => {
@@ -23,21 +23,28 @@ const StoryQuotes = () => {
       let urls = results.map((image) => image.urls.regular);
       setImages(urls);
     };
-    if (quote) {
-      getImages(quote.category);
-    }
-  }, [quote]);
+    getImages('sunset');
+  }, []);
 
   return (
     <S.StoryWrapper>
       <S.HeaderQuotes>Make your day better</S.HeaderQuotes>
-      <S.Carousel autoplay effect="fade" autoplaySpeed={7000}>
+      <S.Carousel
+        autoplay
+        effect="fade"
+        autoplaySpeed={7000}
+        arrows
+        dots={false}
+        nextArrow={<ChevronRight />}
+        prevArrow={<ChevronLeft />}
+        beforeChange={handleChangeCurQuote}
+      >
         {images.map((image) => (
           <S.Image src={image} key={image} alt="" />
         ))}
       </S.Carousel>
-      <S.QuoteContent>{`"${quote?.quote}"`}</S.QuoteContent>
-      <S.QuoteAuthor> {`- ${quote?.author}`}</S.QuoteAuthor>
+      <S.QuoteContent>{`"${curQuotes?.quote}"`}</S.QuoteContent>
+      {/* <S.QuoteAuthor> {`- ${quotes?.author}`}</S.QuoteAuthor> */}
     </S.StoryWrapper>
   );
 };

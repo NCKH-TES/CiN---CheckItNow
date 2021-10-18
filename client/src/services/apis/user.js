@@ -8,7 +8,7 @@ const UserApi = {
   },
   register: (info) => {
     const url = `auth/register`;
-    console.log({ url, SERVER_API });
+
     return request.post(url, info);
   },
   loginGoogle: () => {

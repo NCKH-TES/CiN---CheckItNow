@@ -21,32 +21,43 @@ exports.getTaskList = catchAsync(async (req, res, next) => {
   const { page = 1, perPage = 12 } = req.body;
   const sortBy = fillObj(req.body);
   sortBy.unshift(['completed', 'ASC']);
-  console.log(sortBy);
+
+  //condition
+  const where = {
+    user_id: req.user.user_id, //SELECT USER'S TASK
+    [Op.or]: [
+      {
+        task_name: {
+          [Op.substring]: req.body.search || '', //SEARCH NAME
+        },
+      },
+      {
+        task_description: {
+          [Op.substring]: req.body.search || '', //SEARCH DESCRIPTION
+        },
+      },
+    ],
+  };
+
+  //filter
+  if (req.body.filter !== undefined) where.completed = req.body.filter;
+
+  console.log(where);
+
   const taskList = await Task.findAndCountAll({
     order: sortBy, //SORT
-    where: {
-      user_id: req.user.user_id, //SELECT USER'S TASK
-      [Op.or]: [
-        {
-          task_name: {
-            [Op.substring]: req.body.search || '', //SEARCH NAME
-          },
-        },
-        {
-          task_description: {
-            [Op.substring]: req.body.search || '', //SEARCH DESCRIPTION
-          },
-        },
-      ],
-    },
-    limit: perPage*1,
+    where,
+    limit: perPage * 1,
     offset: (page - 1) * perPage,
   });
 
-  taskList.rows.forEach(task => {
-    task.dataValues.task_due = moment(task.dataValues.task_due).format('YYYY-MM-DD h:mm:ss a');
-  })
-  
+  //Convert time
+  taskList.rows.forEach((task) => {
+    task.dataValues.task_due = moment(task.dataValues.task_due).format(
+      'YYYY-MM-DD h:mm:ss a'
+    );
+  });
+
   res.status(200).json({
     status: 'Success',
     data: {
@@ -57,44 +68,6 @@ exports.getTaskList = catchAsync(async (req, res, next) => {
     },
   });
 });
-
-//params: completed = true || false
-exports.filter = (catchAsync(async (req, res, next) => {
-  const { page = 1, perPage = 12, completed} = req.query
-  console.log(req.query);
-  const taskList = await Task.findAndCountAll({
-    where: {
-      user_id: req.user.user_id,
-      completed: completed === 'true' ? true : false,
-    },
-    limit: perPage*1,
-    offset: (page - 1) * perPage,
-  })
-  taskList.rows.forEach(task => {
-    task.dataValues.task_due = moment(task.dataValues.task_due).format('YYYY-MM-DD h:mm:ss a');
-  })
-  res.status(200).json({
-    status: 'Success',
-    data: {
-      count: taskList.count,
-      tasks: taskList.rows,
-      totalPages: Math.ceil(taskList.count / perPage),
-      currentPage: page,
-    },
-  });
-}));
-
-// //GET TASK DETAIL
-// exports.getTask = catchAsync(async (req, res, next) => {
-//   const task = await Task.findByPk(req.params.id);
-//   if (!task) return next(new AppError('Task not found', 404));
-//   res.status(200).json({
-//     status: 'Success',
-//     data: {
-//       task,
-//     },
-//   });
-// });
 
 //UPDATE TASK BY ID
 exports.updateTask = catchAsync(async (req, res, next) => {

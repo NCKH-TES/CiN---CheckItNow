@@ -25,6 +25,6 @@ taskRouter.patch('/:id', authController.protect, taskController.updateTask);
 // );
 
 //Filter
-taskRouter.get('/', authController.protect, taskController.filter);
+// taskRouter.get('/', authController.protect, taskController.filter);
 
 module.exports = taskRouter;

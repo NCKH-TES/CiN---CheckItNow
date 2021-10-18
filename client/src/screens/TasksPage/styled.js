@@ -98,7 +98,7 @@ export const Sort = styled.div`
   margin-left: 10px;
 `;
 export const Text2 = styled.div`
-  color: #6f6a6a;
+  color: ${({ $color }) => $color || '#6f6a6a'};
   font-size: 18px;
   margin-right: 10px;
   font-weight: 600;
@@ -142,18 +142,16 @@ export const ListTask = styled.div`
 export const Task = styled.div`
   width: 100%;
   padding: 15px;
-  background: ${({$done}) => $done ? '#E4E7F2' : '#FFFFFF'};
-  border: 1px solid #E4E7F2;
+  background: ${({ $done }) => ($done ? '#E4E7F2' : '#FFFFFF')};
+  border: 1px solid #e4e7f2;
   box-sizing: border-box;
   border-radius: 25px;
   margin-top: 20px;
   display: flex;
   position: relative;
-
 `;
 
-export const CheckB = styled(Checkbox)`
-`;
+export const CheckB = styled(Checkbox)``;
 
 export const TextTask = styled.p`
   font-weight: 600;
@@ -161,13 +159,15 @@ export const TextTask = styled.p`
   line-height: 20px;
   color: #000000;
 
-  ${({$isSmall})=> $isSmall && css`
-    font-weight: 300;
-    font-size: 12px;
-    line-height: 19px;
-    color: #6F6A6A;
-    margin-top: -15px;
-  `}
+  ${({ $isSmall }) =>
+    $isSmall &&
+    css`
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 19px;
+      color: #6f6a6a;
+      margin-top: -15px;
+    `}
 `;
 
 export const TextTime = styled.p`

@@ -16,13 +16,11 @@ export const login = createAsyncThunk(
 export const registerApi = createAsyncThunk(
   'api/register',
   async ({ user_name, email, password }, { rejectWithValue }) => {
-    console.log(user_name, email, password);
     try {
       const { data } = await userAPI.register({ user_name, email, password });
       localStorage.setItem('userInfo', JSON.stringify(data.user));
       return data;
     } catch (err) {
-      //err.response.data - contains error returned from server
       return rejectWithValue(err.response.data.err.errors[0].message);
     }
   }
@@ -48,7 +46,6 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      console.log('OK LOG');
       localStorage.removeItem('userInfo');
       removeItem('user_name');
       removeItem('token');
@@ -74,7 +71,7 @@ export const authSlice = createSlice({
     },
     [login.rejected]: (state, action) => {
       state.loading = false;
-      state.error = 'User name or password is  wrong';
+      state.error = 'user name or password is wrong';
     },
 
     // // register
@@ -87,7 +84,7 @@ export const authSlice = createSlice({
     },
     [registerApi.rejected]: (state, action) => {
       state.loading = false;
-      state.error = action.payload;
+      state.errorRegister = action.payload;
     },
   },
 });

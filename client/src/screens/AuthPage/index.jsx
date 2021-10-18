@@ -27,6 +27,8 @@ export default function Auth({ history }) {
   const dispatch = useDispatch();
   const [activePass, setActivePass] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [loginGoogle, setLoginGoogle] = useState(false);
+
   const auth = useSelector((state) => state.auth);
   const { loading, error, userInfo } = auth;
   const errorLogin = () => {
@@ -58,20 +60,22 @@ export default function Auth({ history }) {
   };
 
   const loginGoogleHandler = async () => {
-    let timer = null;
     const googleTab = window.open(
       'http://localhost:5000/api/v1/auth/google',
       '_blank',
       'width:400,height:500'
     );
-    if (getCookie('token') !== undefined) {
-      googleTab.close();
-    }
+    const getGG = setInterval(async () => {
+      if (getCookie('user_name') !== undefined) {
+        await window.location.reload();
+        await googleTab.close();
+        await clearInterval(getGG);
+      }
+    }, 1000);
   };
 
   useEffect(() => {
     if (userInfo) {
-      console.log(userInfo);
       history.push('/');
     } else {
       history.push('/login');
@@ -118,9 +122,7 @@ export default function Auth({ history }) {
             </S.Remember>
 
             {loading && <Loader />}
-            {error && (
-              <Alert message="User name or password is wrong" type="error" />
-            )}
+            {error && <Alert message={error} type="error" />}
             <S.Login type="submit" value="Login"></S.Login>
             <S.OR>OR</S.OR>
             <S.LoginGG onClick={loginGoogleHandler}>
@@ -140,6 +142,7 @@ export default function Auth({ history }) {
         isModalVisible={isModalVisible}
         showModal={showModal}
         handleCancel={handleCancel}
+        loginGoogleHandler={loginGoogleHandler}
       />
     </S.Wrapper>
   );
