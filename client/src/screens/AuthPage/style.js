@@ -104,7 +104,21 @@ export const Login = styled.input`
     color: white;
   }
 `;
-export const LoginGG = styled.div``;
+export const LoginGG = styled.div`
+  display: flex;
+  color: #665f5f;
+  font-size: 15px;
+  cursor: pointer;
+`;
+export const textGG = styled.div`
+  padding-top: 3px;
+`;
+export const LogoGoogle = styled.img`
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+`;
 
 export const Google = styled.div`
   font-weight: bold;

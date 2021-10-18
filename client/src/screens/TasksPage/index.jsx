@@ -27,6 +27,7 @@ export default function Index({ history }) {
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(4);
   const [item, setItiem] = useState({});
+  const [search, setSearch] = useState('');
 
   const listTask = useSelector((state) => state.task.listTask.tasks);
   const count = useSelector((state) => state.task.listTask.count);
@@ -50,16 +51,17 @@ export default function Index({ history }) {
   );
 
   useEffect(() => {
-    if (!userInfo) {
-      history.push('/login');
-    } else {
+    if (userInfo) {
+      console.log(userInfo);
       history.push('/');
+    } else {
+      history.push('/login');
     }
   }, [userInfo, history, dispatch]);
 
   useEffect(() => {
-    dispatch(getListTask({ page: page, perPage: perPage }));
-  }, [dispatch, page, perPage]);
+    dispatch(getListTask({ search: search, page: page, perPage: perPage }));
+  }, [dispatch, page, perPage, search]);
 
   const handleDelete = () => {
     task
@@ -140,7 +142,7 @@ export default function Index({ history }) {
         <S.Left>
           <div style={{ display: 'flex', position: 'relative' }}>
             <S.InputFiled
-              onChange={(e) => console.log(e.target.value)}
+              onChange={(e) => setSearch(e.target.value)}
               placeholder="Search task"
               $height={50}
             />

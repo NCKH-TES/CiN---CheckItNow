@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import * as S from './style';
 import ActivePass from '../../assets/images/active.svg';
-import logoGoogle from '../../assets/images/google.png';
+
 import { useForm } from 'react-hook-form';
 import { Modal } from 'antd';
 import { yupResolver } from '@hookform/resolvers/yup';

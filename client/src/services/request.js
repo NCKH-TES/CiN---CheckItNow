@@ -1,7 +1,8 @@
 import axios from 'axios';
 import queryString from 'query-string';
+import { useSelector } from 'react-redux';
 import { SERVER_API } from '../constants/config';
-
+import { getCookie } from '../constants/cookie';
 const request = axios.create({
   baseURL: SERVER_API,
   headers: {
@@ -11,8 +12,15 @@ const request = axios.create({
 });
 
 request.interceptors.request.use(async (config) => {
+  const userFromCookie = {
+    user_name: getCookie('user_name'),
+    token: getCookie('token'),
+  };
+
   const userInfo = localStorage.getItem('userInfo')
     ? JSON.parse(localStorage.getItem('userInfo'))
+    : userFromCookie.token
+    ? userFromCookie
     : null;
   if (userInfo) {
     const token = await userInfo.token;

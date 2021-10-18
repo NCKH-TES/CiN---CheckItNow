@@ -6,5 +6,16 @@ import time from '../icons/time.svg';
 import AddLevel from './add_level.js';
 import user from './user.png';
 import down_arrow from './down_arrow.png';
+import google from './google.png';
 
-export { down_arrow, user, add, calendar, search, AddLevel, sort, time };
+export {
+  down_arrow,
+  user,
+  add,
+  calendar,
+  search,
+  AddLevel,
+  sort,
+  time,
+  google,
+};

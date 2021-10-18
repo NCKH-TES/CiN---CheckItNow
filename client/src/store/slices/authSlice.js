@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import userAPI from '../../services/apis/user';
-
+import { getCookie, removeItem } from '../../constants/cookie';
 // POST : api/users/login
 export const login = createAsyncThunk(
   'api/login',
@@ -10,19 +10,6 @@ export const login = createAsyncThunk(
     return data.user;
   }
 );
-
-// export const loginGoogle = createAsyncThunk(
-//   'api/google',
-//   async ({ res }, thunkAPI) => {
-//     const googleUser = {};
-//     // googleUser.user_name = res.profileObj.name;
-//     // googleUser.email = res.profileObj.email;
-//     // googleUser.image = res.profileObj.imageUrl;
-//     // googleUser.token = res.tokenId;
-//     // googleUser.user_id = res.googleId;
-//     localStorage.setItem('userInfo', JSON.stringify(googleUser));
-//   }
-// );
 
 //API
 // POST : Register
@@ -41,8 +28,15 @@ export const registerApi = createAsyncThunk(
   }
 );
 
+const userFromCookie = {
+  user_name: getCookie('user_name'),
+  token: getCookie('token'),
+};
+
 const userInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
+  : userFromCookie.token
+  ? userFromCookie
   : null;
 
 const initialState = {
@@ -56,6 +50,8 @@ export const authSlice = createSlice({
     logout: (state) => {
       console.log('OK LOG');
       localStorage.removeItem('userInfo');
+      removeItem('user_name');
+      removeItem('token');
       return {};
     },
     reset_auth: (state) => {
