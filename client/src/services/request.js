@@ -39,7 +39,7 @@ export const quotesApi = axios.create({
     Authorization: 'Token 52cc20ad6a71a7e6ec2d03e97f25ea32039a5ce2',
   },
   params: {
-    tags: 'motivation, inspirational',
+    tags: 'motivation, inspirational, sunset',
     order: '-likes',
     maxlength: 60,
     minlength: 40,
