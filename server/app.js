@@ -51,13 +51,15 @@ sequelize
 //Send Email at 7 AM
 require('./utils/remind')();
 
-// declare react files in build as static
-app.use(express.static(path.join(__dirname, '/client/build')));
+if (process.env.NODE_ENV === 'production') {
+  // declare react files in build as static
+  app.use(express.static(path.join(__dirname, '/client/build')));
 
-// serve index.html from the build folder
-app.get('*', (req, res) =>
-  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-);
+  // serve index.html from the build folder
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  );
+}
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
