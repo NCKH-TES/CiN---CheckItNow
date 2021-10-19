@@ -43,8 +43,6 @@ exports.getTaskList = catchAsync(async (req, res, next) => {
   if(req.body.filter !== undefined)
     where.completed = req.body.filter;
   
-  console.log(where);
-
   const taskList = await Task.findAndCountAll({
     order: sortBy, //SORT
     where, 

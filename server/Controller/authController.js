@@ -60,7 +60,7 @@ exports.loginBySystemAccount = catchAsync(async (req, res, next) => {
       status: 'Success',
       user: { ...userData, token, password: undefined },
     });
-  } else return next(new AppError('Email or Password is invalid!', 401));
+  } else return next(new AppError('Email or Password is invalid!', 400));
 });
 
 exports.protect = catchAsync(async (req, res, next) => {
