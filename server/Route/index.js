@@ -7,8 +7,8 @@ module.exports = (app) => {
   app.use('/api/v1/user', userRouter);
   app.use('/api/v1/task', taskRouter);
   app.use('/api/v1/auth', authRouter);
-  app.all('/*', (req, res, next) => {
-    next(new AppError('Page not found', 404));
-  });
+  // app.all('/*', (req, res, next) => {
+  //   next(new AppError('Page not found', 404));
+  // });
   app.use(errorController);
 };

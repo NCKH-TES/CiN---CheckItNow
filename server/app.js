@@ -31,9 +31,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors());
 
-app.get('/', (req, res) => {
-  res.send('HOME PAGE');
-});
+// app.get('/', (req, res) => {
+//   res.send('HOME PAGE');
+// });
 
 //import Router
 require('./Route/index')(app);
@@ -51,13 +51,15 @@ sequelize
 //Send Email at 7 AM
 require('./utils/remind')();
 
+const __dirnameRoot = path.resolve();
+
 if (process.env.NODE_ENV === 'production') {
   // declare react files in build as static
-  app.use(express.static(path.join(__dirname, '/client/build')));
+  app.use(express.static(path.join(__dirnameRoot, '/client/build')));
 
   // serve index.html from the build folder
   app.get('*', (req, res) =>
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    res.sendFile(path.resolve(__dirnameRoot, 'client', 'build', 'index.html'))
   );
 }
 
