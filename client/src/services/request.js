@@ -1,7 +1,8 @@
 import axios from 'axios';
 import queryString from 'query-string';
+import { useSelector } from 'react-redux';
 import { SERVER_API } from '../constants/config';
-
+import { getCookie } from '../constants/cookie';
 const request = axios.create({
   baseURL: SERVER_API,
   headers: {
@@ -11,8 +12,15 @@ const request = axios.create({
 });
 
 request.interceptors.request.use(async (config) => {
+  const userFromCookie = {
+    user_name: getCookie('user_name'),
+    token: getCookie('token'),
+  };
+
   const userInfo = localStorage.getItem('userInfo')
     ? JSON.parse(localStorage.getItem('userInfo'))
+    : userFromCookie.token
+    ? userFromCookie
     : null;
   if (userInfo) {
     const token = await userInfo.token;
@@ -28,22 +36,8 @@ export const unsplashApi = axios.create({
   },
   params: {
     page: 1,
-    per_page: 4,
+    per_page: 16,
     orientation: 'landscape',
-  },
-});
-
-export const quotesApi = axios.create({
-  baseURL: 'https://api.paperquotes.com/apiv1/quotes',
-  headers: {
-    Authorization: 'Token 52cc20ad6a71a7e6ec2d03e97f25ea32039a5ce2',
-  },
-  params: {
-    tags: 'motivation, inspirational',
-    order: '-likes',
-    maxlength: 60,
-    minlength: 40,
-    lang: 'en',
   },
 });
 

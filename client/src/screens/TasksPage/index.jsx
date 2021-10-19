@@ -27,6 +27,10 @@ export default function Index({ history }) {
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(4);
   const [item, setItiem] = useState({});
+  const [search, setSearch] = useState('');
+  const [complete, setComplete] = useState();
+  const [filterAll, setFilterAll] = useState(true);
+  const [sort, setSort] = useState('');
 
   const listTask = useSelector((state) => state.task.listTask.tasks);
   const count = useSelector((state) => state.task.listTask.count);
@@ -43,21 +47,52 @@ export default function Index({ history }) {
   };
   const menuUser = (
     <Menu>
-      <Menu.Item onClick={handlerLogout}>Logout</Menu.Item>
+      <Menu.Item onClick={handlerLogout} key="">
+        Logout
+      </Menu.Item>
+    </Menu>
+  );
+  const menuSort = (
+    <Menu>
+      <Menu.Item onClick={() => setSort('task_due')} key="">
+        By deadline
+      </Menu.Item>
+      <Menu.Item onClick={() => setSort('priority')} key="">
+        By priority
+      </Menu.Item>
     </Menu>
   );
 
   useEffect(() => {
-    if (!userInfo) {
-      history.push('/login');
-    } else {
+    if (userInfo) {
       history.push('/');
+    } else {
+      history.push('/login');
     }
   }, [userInfo, history, dispatch]);
 
   useEffect(() => {
-    dispatch(getListTask({ page: page, perPage: perPage }));
-  }, [dispatch, page, perPage]);
+    if (filterAll) {
+      dispatch(
+        getListTask({
+          search: search,
+          page: page,
+          perPage: perPage,
+          sort: sort,
+        })
+      );
+    } else {
+      dispatch(
+        getListTask({
+          search: search,
+          page: page,
+          perPage: perPage,
+          filter: complete,
+          sort: sort,
+        })
+      );
+    }
+  }, [dispatch, page, perPage, search, complete, filterAll, sort]);
 
   const handleDelete = () => {
     task
@@ -108,7 +143,7 @@ export default function Index({ history }) {
         {userInfo && (
           <S.UserGroup>
             <S.Icon1
-              src={Icon.user}
+              src={userInfo.image ? userInfo.image : Icon.user}
               $width="32"
               $height="30"
               style={{ marginRight: '15px' }}
@@ -138,7 +173,7 @@ export default function Index({ history }) {
         <S.Left>
           <div style={{ display: 'flex', position: 'relative' }}>
             <S.InputFiled
-              onChange={(e) => console.log(e.target.value)}
+              onChange={(e) => setSearch(e.target.value)}
               placeholder="Search task"
               $height={50}
             />
@@ -146,13 +181,39 @@ export default function Index({ history }) {
           </div>
           <S.Option>
             <div style={{ display: 'flex' }}>
-              <S.Text2>All</S.Text2>
-              <S.Text2>Complete</S.Text2>
-              <S.Text2>Todo</S.Text2>
-              <S.Sort>
-                <S.Icon1 src={Icon.sort} />
-                <S.Text2 style={{ fontWeight: '200' }}>Sort</S.Text2>
-              </S.Sort>
+              <S.Text2
+                $color={filterAll && '#6688bc'}
+                onClick={() => {
+                  setFilterAll(true);
+                  setComplete(undefined);
+                }}
+              >
+                All
+              </S.Text2>
+              <S.Text2
+                $color={complete === true && '#6688bc'}
+                onClick={() => {
+                  setFilterAll(false);
+                  setComplete(true);
+                }}
+              >
+                Complete
+              </S.Text2>
+              <S.Text2
+                $color={complete === false && '#6688bc'}
+                onClick={() => {
+                  setFilterAll(false);
+                  setComplete(false);
+                }}
+              >
+                Todo
+              </S.Text2>
+              <S.Author overlay={menuSort}>
+                <S.Sort>
+                  <S.Icon1 src={Icon.sort} />
+                  <S.Text2 style={{ fontWeight: '200' }}>Sort</S.Text2>
+                </S.Sort>
+              </S.Author>
             </div>
             <S.AddTask onClick={showModal}>
               <S.Icon1 src={Icon.add} />

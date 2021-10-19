@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import * as S from './style';
 import ActivePass from '../../assets/images/active.svg';
-import logoGoogle from '../../assets/images/google.png';
+import * as Icon from '../../assets/icons';
 import { useForm } from 'react-hook-form';
 import { Modal } from 'antd';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -27,7 +27,7 @@ const schema = yup
 export default function Auth(props) {
   const dispatch = useDispatch();
   const [activePass, setActivePass] = useState(false);
-  const { isModalVisible, showModal, handleCancel } = props;
+  const { isModalVisible, showModal, handleCancel, loginGoogleHandler } = props;
   const auth = useSelector((state) => state.auth);
   const { loading, errorRegister } = auth;
   const {
@@ -37,8 +37,11 @@ export default function Auth(props) {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) => {
-    dispatch(registerApi(data));
+  const onSubmit = async (data) => {
+    const registerDone = await dispatch(registerApi(data));
+    if (registerDone) {
+      window.location.reload();
+    }
   };
 
   return (
@@ -107,8 +110,8 @@ export default function Auth(props) {
         {errorRegister && <Alert message={errorRegister} type="error" />}
         <S.Login type="submit" value="Register"></S.Login>
         <S.OR>OR</S.OR>
-        <S.LoginGG>
-          <S.LogoGoogle src={logoGoogle} />
+        <S.LoginGG onClick={loginGoogleHandler}>
+          <S.LogoGoogle src={Icon.google} />
           <S.textGG>Register with Google</S.textGG>
         </S.LoginGG>
       </S.FormRegister>

@@ -37,24 +37,36 @@ exports.getTaskList = catchAsync(async (req, res, next) => {
         },
       },
     ],
+<<<<<<< HEAD
   }
   
   //filter 
   if(req.body.filter !== undefined)
     where.completed = req.body.filter;
   
+=======
+  };
+
+  //filter
+  if (req.body.filter !== undefined) where.completed = req.body.filter;
+
+  console.log(where);
+
+>>>>>>> 1e6d0ab25a51f38e7a5c67aeddc757636751f264
   const taskList = await Task.findAndCountAll({
     order: sortBy, //SORT
-    where, 
-    limit: perPage*1,
+    where,
+    limit: perPage * 1,
     offset: (page - 1) * perPage,
   });
 
   //Convert time
-  taskList.rows.forEach(task => {
-    task.dataValues.task_due = moment(task.dataValues.task_due).format('YYYY-MM-DD h:mm:ss a');
-  })
-  
+  taskList.rows.forEach((task) => {
+    task.dataValues.task_due = moment(task.dataValues.task_due).format(
+      'YYYY-MM-DD h:mm:ss a'
+    );
+  });
+
   res.status(200).json({
     status: 'Success',
     data: {
