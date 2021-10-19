@@ -4,7 +4,6 @@ import * as S from './style';
 import logo from '../../assets/images/logo.svg';
 import imgLogin from '../../assets/images/login.svg';
 import ActivePass from '../../assets/images/active.svg';
-import logoGoogle from '../../assets/images/google.png';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Col } from 'antd';
@@ -14,6 +13,8 @@ import { login, reset_auth } from '../../store/slices/authSlice';
 import Loader from '../../components/Loader';
 import { message } from 'antd';
 import { Alert } from 'antd';
+import { getCookie } from '../../constants/cookie';
+import * as Icon from '../../assets/icons';
 
 const schema = yup
   .object({
@@ -26,6 +27,8 @@ export default function Auth({ history }) {
   const dispatch = useDispatch();
   const [activePass, setActivePass] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [loginGoogle, setLoginGoogle] = useState(false);
+
   const auth = useSelector((state) => state.auth);
   const { loading, error, userInfo } = auth;
   const errorLogin = () => {
@@ -56,13 +59,29 @@ export default function Auth({ history }) {
     setIsModalVisible(false);
   };
 
+  const loginGoogleHandler = async () => {
+    const googleTab = window.open(
+      'http://localhost:5000/api/v1/auth/google',
+      '_blank',
+      'width:400,height:500'
+    );
+    const getGG = setInterval(async () => {
+      if (getCookie('user_name') !== undefined) {
+        await window.location.reload();
+        await googleTab.close();
+        await clearInterval(getGG);
+      }
+    }, 1000);
+  };
+
   useEffect(() => {
     if (userInfo) {
       history.push('/');
     } else {
       history.push('/login');
     }
-  }, [userInfo, history]);
+  }, [userInfo, history, dispatch]);
+
   return (
     <S.Wrapper>
       {userInfo && loginSuccess()}
@@ -103,13 +122,11 @@ export default function Auth({ history }) {
             </S.Remember>
 
             {loading && <Loader />}
-            {error && (
-              <Alert message="User name or password is wrong" type="error" />
-            )}
+            {error && <Alert message={error} type="error" />}
             <S.Login type="submit" value="Login"></S.Login>
             <S.OR>OR</S.OR>
-            <S.LoginGG>
-              <S.LogoGoogle src={logoGoogle} />
+            <S.LoginGG onClick={loginGoogleHandler}>
+              <S.LogoGoogle src={Icon.google} />
               <S.textGG>Login with Google</S.textGG>
             </S.LoginGG>
             <S.Register>
@@ -125,6 +142,7 @@ export default function Auth({ history }) {
         isModalVisible={isModalVisible}
         showModal={showModal}
         handleCancel={handleCancel}
+        loginGoogleHandler={loginGoogleHandler}
       />
     </S.Wrapper>
   );

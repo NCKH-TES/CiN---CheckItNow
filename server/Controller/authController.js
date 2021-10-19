@@ -23,20 +23,19 @@ exports.login = catchAsync(async (req, res, next) => {
       provider: req.user.provider,
     },
   });
-  
+
   const token = signToken(user.user_id);
   const cookieOptions = {
-    expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+    ),
     httpOnly: false,
-}
+  };
 
   res.cookie('token', token, cookieOptions);
   res.cookie('user_name', user.dataValues.user_name, cookieOptions);
-  
-  res.status(200).json({
-    status: 'Success',
-    user: { ...user.dataValues, token, password: undefined },
-  });
+
+  res.status(200).send('<h1> Welcome to CIN</h1>');
 });
 
 // Register new user - [POST] /api/v1/auth/register

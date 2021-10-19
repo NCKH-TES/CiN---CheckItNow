@@ -119,13 +119,14 @@ export const LogoGoogle = styled.img`
   margin-right: 10px;
   margin-bottom: 20px;
 `;
+
 export const Google = styled.div`
   font-weight: bold;
   padding-left: 8px;
 `;
 export const OR = styled.p`
   color: #665f5f75;
-  margin-top: 10px;
+  margin: 12px 0;
 `;
 export const Register = styled.div`
   margin-top: 15px;
