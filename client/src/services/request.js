@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { SERVER_API } from '../constants/config';
 import { getCookie } from '../constants/cookie';
 const request = axios.create({
-  baseURL: SERVER_API,
+  baseURL: 'https://checkitnowz.herokuapp.com/api/v1/',
   headers: {
     'content-type': 'application/json',
   },
