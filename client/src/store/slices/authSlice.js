@@ -82,14 +82,14 @@ export const authSlice = createSlice({
 
     // // register
     [registerApi.pending]: (state) => {
-      state.loading = true;
+      state.loadingRegister = true;
     },
     [registerApi.fulfilled]: (state, action) => {
-      state.loading = false;
+      state.loadingRegister = false;
       state.userInfo = action.payload;
     },
     [registerApi.rejected]: (state, action) => {
-      state.loading = false;
+      state.loadingRegister = false;
       state.errorRegister = action.payload;
     },
   },

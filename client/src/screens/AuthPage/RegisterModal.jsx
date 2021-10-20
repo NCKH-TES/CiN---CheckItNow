@@ -29,7 +29,7 @@ export default function Auth(props) {
   const [activePass, setActivePass] = useState(false);
   const { isModalVisible, showModal, handleCancel, loginGoogleHandler } = props;
   const auth = useSelector((state) => state.auth);
-  const { loading, errorRegister } = auth;
+  const { loadingRegister, errorRegister } = auth;
   const {
     register,
     handleSubmit,
@@ -111,7 +111,7 @@ export default function Auth(props) {
           </S.AgreeService>
         </S.Remember>
         <S.MessageError>{errors.agreeService?.message}</S.MessageError>
-        {loading && <Loader />}
+        {loadingRegister && <Loader />}
         {errorRegister && <Alert message={errorRegister} type="error" />}
         <S.Login type="submit" value="Register"></S.Login>
         <S.OR>OR</S.OR>
