@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { Input } from 'antd';
 export const Wrapper = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   padding: 40px 90px;
   background-color: #e4e7f2;
 `;
@@ -24,29 +24,29 @@ export const Content = styled.div`
   display: flex;
   background-color: white;
   border-radius: 15px;
-  height: 90%;
+  min-height: 80vh;
 `;
 export const ImgLogin = styled.img`
-  width: 538px;
+  width: 600px;
   padding: 0 56px;
   margin-left: 100px;
 `;
 
 export const FormLogin = styled.form`
-  margin-right: 140px;
+  margin-right: 110px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid #33333336;
   border-radius: 10px;
+  padding: 30px 0;
 `;
 export const TextHead = styled.div`
   font-family: 'Nunito';
   font-weight: bold;
   font-size: 26px;
   color: #7690d6;
-  padding: 30px 0;
+  margin-bottom: 30px;
 `;
 export const InputField = styled.input`
   outline: none;
@@ -78,7 +78,7 @@ export const Remember = styled.div`
   display: flex;
   align-items: center;
   width: 70%;
-  margin: 10px 0;
+  margin: 10px 0 30px 0;
 `;
 
 export const CheckBoxField = styled.input`
@@ -88,7 +88,7 @@ export const CheckBoxField = styled.input`
 
 export const Login = styled.input`
   cursor: pointer;
-  margin-top: 20px;
+  margin: 13px 0;
   background-color: #899fd8;
   padding: 5px 60px;
   border-radius: 25px;
@@ -129,13 +129,13 @@ export const OR = styled.p`
   margin: 12px 0;
 `;
 export const Register = styled.div`
-  margin-top: 15px;
+  margin-top: 5px;
 `;
 export const RegisterFiled = styled.p`
   text-align: center;
   color: #556a9e;
   font-weight: bold;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
   cursor: pointer;
   &:hover {
     color: #4771d8;

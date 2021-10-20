@@ -49,7 +49,7 @@ export default function Auth({ history }) {
     dispatch(login(data));
     setTimeout(() => {
       dispatch(reset_auth());
-    }, 2000);
+    }, 3000);
   };
 
   const showModal = () => {

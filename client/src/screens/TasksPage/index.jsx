@@ -45,6 +45,11 @@ export default function Index({ history }) {
   const handlerLogout = () => {
     dispatch(logout());
   };
+  const handlerSearch = (e) => {
+    setTimeout(() => {
+      setSearch(e.target.value);
+    }, 700);
+  };
   const menuUser = (
     <Menu>
       <Menu.Item onClick={handlerLogout} key="">
@@ -72,27 +77,16 @@ export default function Index({ history }) {
   }, [userInfo, history, dispatch]);
 
   useEffect(() => {
-    if (filterAll) {
-      dispatch(
-        getListTask({
-          search: search,
-          page: page,
-          perPage: perPage,
-          sort: sort,
-        })
-      );
-    } else {
-      dispatch(
-        getListTask({
-          search: search,
-          page: page,
-          perPage: perPage,
-          filter: complete,
-          sort: sort,
-        })
-      );
-    }
-  }, [dispatch, page, perPage, search, complete, filterAll, sort]);
+    dispatch(
+      getListTask({
+        search: search.trim(),
+        page: page,
+        perPage: perPage,
+        filter: complete,
+        sort: sort,
+      })
+    );
+  }, [page, perPage, search, complete, sort]);
 
   const handleDelete = () => {
     task
@@ -173,7 +167,7 @@ export default function Index({ history }) {
         <S.Left>
           <div style={{ display: 'flex', position: 'relative' }}>
             <S.InputFiled
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => handlerSearch(e)}
               placeholder="Search task"
               $height={50}
             />
@@ -185,7 +179,7 @@ export default function Index({ history }) {
                 $color={filterAll && '#6688bc'}
                 onClick={() => {
                   setFilterAll(true);
-                  setComplete(undefined);
+                  setComplete('');
                 }}
               >
                 All

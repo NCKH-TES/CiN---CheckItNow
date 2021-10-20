@@ -4,10 +4,14 @@ import { getCookie, removeItem } from '../../constants/cookie';
 // POST : api/users/login
 export const login = createAsyncThunk(
   'api/login',
-  async ({ email, password, remember }, thunkAPI) => {
-    const { data } = await userAPI.login({ email, password });
-    if (remember) localStorage.setItem('userInfo', JSON.stringify(data.user));
-    return data.user;
+  async ({ email, password, remember }, { rejectWithValue }) => {
+    try {
+      const { data } = await userAPI.login({ email, password });
+      if (remember) localStorage.setItem('userInfo', JSON.stringify(data.user));
+      return data.user;
+    } catch (err) {
+      return rejectWithValue(err.response.data.message);
+    }
   }
 );
 
@@ -21,7 +25,7 @@ export const registerApi = createAsyncThunk(
       localStorage.setItem('userInfo', JSON.stringify(data.user));
       return data;
     } catch (err) {
-      return rejectWithValue(err.response.data.err.errors[0].message);
+      return rejectWithValue(err.response.data.message);
     }
   }
 );
@@ -39,6 +43,7 @@ const userInfoFromStorage = localStorage.getItem('userInfo')
 
 const initialState = {
   userInfo: userInfoFromStorage,
+  err: '',
 };
 
 export const authSlice = createSlice({
@@ -53,6 +58,7 @@ export const authSlice = createSlice({
     },
     reset_auth: (state) => {
       state.error = null;
+      state.errorRegister = null;
     },
     loginGoogle: (state, action) => {
       state.userInfo = action.payload;
@@ -71,7 +77,7 @@ export const authSlice = createSlice({
     },
     [login.rejected]: (state, action) => {
       state.loading = false;
-      state.error = 'user name or password is wrong';
+      state.error = action.payload;
     },
 
     // // register
