@@ -4,12 +4,6 @@ export const Wrapper = styled.div`
   min-height: 100vh;
   padding: 40px 90px;
   background-color: #e4e7f2;
-  .sc-eJMPIT {
-    padding: 45px 0;
-  }
-  .sc-jQbJRc {
-    padding: 40px 0;
-  }
 `;
 
 export const Header = styled.div`
@@ -30,7 +24,7 @@ export const Content = styled.div`
   display: flex;
   background-color: white;
   border-radius: 15px;
-  height: 95%;
+  min-height: 80vh;
 `;
 export const ImgLogin = styled.img`
   width: 600px;
@@ -39,20 +33,20 @@ export const ImgLogin = styled.img`
 `;
 
 export const FormLogin = styled.form`
-  margin-right: 140px;
+  margin-right: 110px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
+  padding: 30px 0;
 `;
 export const TextHead = styled.div`
   font-family: 'Nunito';
   font-weight: bold;
   font-size: 26px;
   color: #7690d6;
-  padding: 10px 0;
-  margin-bottom: 16px;
+  margin-bottom: 30px;
 `;
 export const InputField = styled.input`
   outline: none;
@@ -84,7 +78,7 @@ export const Remember = styled.div`
   display: flex;
   align-items: center;
   width: 70%;
-  margin: 10px 0;
+  margin: 10px 0 30px 0;
 `;
 
 export const CheckBoxField = styled.input`
@@ -94,7 +88,7 @@ export const CheckBoxField = styled.input`
 
 export const Login = styled.input`
   cursor: pointer;
-  margin-top: 40px;
+  margin: 13px 0;
   background-color: #899fd8;
   padding: 5px 60px;
   border-radius: 25px;
