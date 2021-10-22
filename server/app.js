@@ -53,7 +53,7 @@ require('./utils/remind')();
 
 const __dirnameRoot = path.resolve();
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'prod') {
   // declare react files in build as static
   app.use(express.static(path.join(__dirnameRoot, '/client/build')));
 
