@@ -14,6 +14,7 @@ import Loader from '../../components/Loader';
 import { message } from 'antd';
 import { Alert } from 'antd';
 import { getCookie } from '../../constants/cookie';
+import { GOOGLE_API } from '../../constants/config';
 import * as Icon from '../../assets/icons';
 
 const schema = yup
@@ -60,10 +61,11 @@ export default function Auth({ history }) {
   };
 
   const loginGoogleHandler = async () => {
+    console.log(GOOGLE_API);
     const googleTab = window.open(
-      'http://localhost:5000/api/v1/auth/google',
+      `${GOOGLE_API}`,
       '_blank',
-      'width:400,height:500'
+      'width:300,height:400'
     );
     const getGG = setInterval(async () => {
       if (getCookie('user_name') !== undefined) {

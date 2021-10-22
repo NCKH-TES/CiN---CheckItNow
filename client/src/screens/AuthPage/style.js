@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { Input } from 'antd';
+import { Input, Row, Col } from 'antd';
 export const Wrapper = styled.div`
   min-height: 100vh;
   padding: 40px 90px;
@@ -25,6 +25,11 @@ export const Content = styled.div`
   background-color: white;
   border-radius: 15px;
   min-height: 80vh;
+  @media only screen and (max-width: 600px) {
+    body {
+      background-color: lightblue;
+    }
+  }
 `;
 export const ImgLogin = styled.img`
   width: 600px;
