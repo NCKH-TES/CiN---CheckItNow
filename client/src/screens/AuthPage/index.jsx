@@ -61,12 +61,27 @@ export default function Auth({ history }) {
   };
 
   const loginGoogleHandler = async () => {
+<<<<<<< HEAD
     console.log(APP_ENV);
+=======
+<<<<<<< HEAD
+    console.log(GOOGLE_API);
+    const googleTab = window.open(
+      `${GOOGLE_API}`,
+      '_blank',
+      'width:300,height:400'
+    );
+=======
+>>>>>>> main
     const googleURI =
       APP_ENV === 'development'
         ? 'http://localhost:5000/api/v1/auth/google'
         : 'https://checkitnowz.herokuapp.com/api/v1/auth/google';
     const googleTab = window.open(googleURI, '_blank', 'width:400,height:500');
+<<<<<<< HEAD
+=======
+>>>>>>> b25cfdcc297cffb2c61875f99cb3906f71813bab
+>>>>>>> main
     const getGG = setInterval(async () => {
       if (getCookie('user_name') !== undefined) {
         await window.location.reload();
