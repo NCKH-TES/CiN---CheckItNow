@@ -2,8 +2,24 @@ import styled, { css } from 'styled-components';
 import { Input, Row, Col } from 'antd';
 export const Wrapper = styled.div`
   min-height: 100vh;
-  padding: 40px 90px;
   background-color: #e4e7f2;
+  padding: 40px 90px;
+
+  ${'' /* mobile */}
+  @media (max-width: 739px) {
+    padding: 30px 10px !important ;
+    .sc-eJMPIT {
+      background-color: #ffffff00 !important;
+    }
+  }
+
+  ${'' /* destop_low */}
+  @media (min-width: 740px) and (max-width: 1264px) {
+    .sc-nFqVA {
+      width: 500px !important;
+      margin-left: 50px !important;
+    }
+  }
 `;
 
 export const Header = styled.div`
@@ -25,9 +41,9 @@ export const Content = styled.div`
   background-color: white;
   border-radius: 15px;
   min-height: 80vh;
-  @media only screen and (max-width: 600px) {
-    body {
-      background-color: lightblue;
+  @media only screen and (min-width: 1263px) {
+    .sc-higWrZ {
+      margin-right: 100px !important;
     }
   }
 `;
@@ -38,7 +54,6 @@ export const ImgLogin = styled.img`
 `;
 
 export const FormLogin = styled.form`
-  margin-right: 110px;
   display: flex;
   flex-direction: column;
   justify-content: center;

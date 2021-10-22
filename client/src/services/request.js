@@ -1,10 +1,12 @@
 import axios from 'axios';
 import queryString from 'query-string';
-import { useSelector } from 'react-redux';
-import { SERVER_API } from '../constants/config';
+import { APP_ENV, SERVER_API } from '../constants/config';
 import { getCookie } from '../constants/cookie';
 const request = axios.create({
-  baseURL: SERVER_API,
+  baseURL:
+    APP_ENV === 'development'
+      ? SERVER_API
+      : 'https://checkitnowz.herokuapp.com/api/v1/',
   headers: {
     'content-type': 'application/json',
   },

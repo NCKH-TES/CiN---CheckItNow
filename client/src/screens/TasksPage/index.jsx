@@ -164,7 +164,7 @@ export default function Index({ history }) {
         )}
       </S.Header>
       <S.Content>
-        <S.Left>
+        <S.Left xl={14} lg={24} xs={24} sm={24}>
           <div style={{ display: 'flex', position: 'relative' }}>
             <S.InputFiled
               onChange={(e) => handlerSearch(e)}
@@ -274,7 +274,7 @@ export default function Index({ history }) {
             />
           </div>
         </S.Left>
-        <S.Right>
+        <S.Right xl={10} lg={24} xs={24} sm={24}>
           <S.Time>
             <Pomodoro />
           </S.Time>

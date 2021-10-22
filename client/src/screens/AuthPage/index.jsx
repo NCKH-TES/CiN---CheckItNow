@@ -14,8 +14,8 @@ import Loader from '../../components/Loader';
 import { message } from 'antd';
 import { Alert } from 'antd';
 import { getCookie } from '../../constants/cookie';
-import { GOOGLE_API } from '../../constants/config';
 import * as Icon from '../../assets/icons';
+import { APP_ENV } from '../../constants/config';
 
 const schema = yup
   .object({
@@ -61,12 +61,12 @@ export default function Auth({ history }) {
   };
 
   const loginGoogleHandler = async () => {
-    console.log(GOOGLE_API);
-    const googleTab = window.open(
-      `${GOOGLE_API}`,
-      '_blank',
-      'width:300,height:400'
-    );
+    console.log(APP_ENV);
+    const googleURI =
+      APP_ENV === 'development'
+        ? 'http://localhost:5000/api/v1/auth/google'
+        : 'https://checkitnowz.herokuapp.com/api/v1/auth/google';
+    const googleTab = window.open(googleURI, '_blank', 'width:400,height:500');
     const getGG = setInterval(async () => {
       if (getCookie('user_name') !== undefined) {
         await window.location.reload();
