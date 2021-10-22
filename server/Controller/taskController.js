@@ -40,7 +40,8 @@ exports.getTaskList = catchAsync(async (req, res, next) => {
   };
 
   //filter
-  if (req.body.filter !== undefined) where.completed = req.body.filter;
+  if (req.body.filter !== undefined && typeof req.body.filter !== 'string')
+    where.completed = req.body.filter;
 
   console.log(where);
 

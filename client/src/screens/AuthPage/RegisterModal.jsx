@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { Modal } from 'antd';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { registerApi } from '../../store/slices/authSlice';
+import { registerApi, reset_auth } from '../../store/slices/authSlice';
 import Loader from '../../components/Loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { Alert } from 'antd';
@@ -29,7 +29,7 @@ export default function Auth(props) {
   const [activePass, setActivePass] = useState(false);
   const { isModalVisible, showModal, handleCancel, loginGoogleHandler } = props;
   const auth = useSelector((state) => state.auth);
-  const { loading, errorRegister } = auth;
+  const { loadingRegister, errorRegister } = auth;
   const {
     register,
     handleSubmit,
@@ -39,8 +39,13 @@ export default function Auth(props) {
   });
   const onSubmit = async (data) => {
     const registerDone = await dispatch(registerApi(data));
-    if (registerDone) {
+    if (!registerDone.error) {
+      console.log(registerDone);
       window.location.reload();
+    } else {
+      setTimeout(() => {
+        dispatch(reset_auth());
+      }, 3000);
     }
   };
 
@@ -106,7 +111,7 @@ export default function Auth(props) {
           </S.AgreeService>
         </S.Remember>
         <S.MessageError>{errors.agreeService?.message}</S.MessageError>
-        {loading && <Loader />}
+        {loadingRegister && <Loader />}
         {errorRegister && <Alert message={errorRegister} type="error" />}
         <S.Login type="submit" value="Register"></S.Login>
         <S.OR>OR</S.OR>
