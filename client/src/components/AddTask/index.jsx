@@ -92,11 +92,17 @@ const AddTask = (props) => {
         </S.Wrapper>
 
         <S.ButtonWrapper>
-          <S.ButtonFiled $width={90} onClick={handleCancel}>
+          <S.ButtonFiled
+            $hoverColor="#9bb2ee"
+            $width={90}
+            onClick={handleCancel}
+          >
             Cancel
           </S.ButtonFiled>
           <S.ButtonFiled
             $width={90}
+            $background="#9bb2ee"
+            $hoverBack="#6375a6"
             type="primary"
             htmlType="submit"
             style={{ marginLeft: '10px' }}

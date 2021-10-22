@@ -1,6 +1,7 @@
 .TimeDisplay {
   position: relative;
   min-width: 145px;
+  margin-right: 15px;
 }
 
 .TimeDisplay > div {

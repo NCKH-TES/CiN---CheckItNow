@@ -75,6 +75,12 @@ export const HightText = styled.span`
 export const ButtonFiled = styled(Button)`
   width: ${({ $width }) => $width || '100%'}px;
   height: ${({ $height }) => $height || '100%'}px;
+  background-color: ${({ $background }) => $background || ''};
+  border: none;
+  &:hover {
+    background-color: ${({ $hoverBack }) => $hoverBack || ''};
+    color: ${({ $hoverColor }) => $hoverColor || ''};
+  }
 `;
 export const ButtonWrapper = styled.div`
   display: flex;
