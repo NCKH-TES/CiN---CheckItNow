@@ -6,6 +6,7 @@ const sequelize = require('./config/DBconfig').sequelize;
 const session = require('express-session');
 const passport = require('passport');
 const cors = require('cors');
+const path = require('path');
 
 //CONNECT TO DATABASE
 sequelize
@@ -30,9 +31,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors());
 
-app.get('/', (req, res) => {
-  res.send('HOME PAGE');
-});
+// app.get('/', (req, res) => {
+//   res.send('HOME PAGE');
+// });
 
 //import Router
 require('./Route/index')(app);
@@ -49,6 +50,18 @@ sequelize
 
 //Send Email at 7 AM
 require('./utils/remind')();
+
+const __dirnameRoot = path.resolve();
+
+if (process.env.NODE_ENV === 'prod') {
+  // declare react files in build as static
+  app.use(express.static(path.join(__dirnameRoot, '/client/build')));
+
+  // serve index.html from the build folder
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirnameRoot, 'client', 'build', 'index.html'))
+  );
+}
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
