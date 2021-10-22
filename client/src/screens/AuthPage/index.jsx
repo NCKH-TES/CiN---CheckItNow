@@ -15,6 +15,7 @@ import { message } from 'antd';
 import { Alert } from 'antd';
 import { getCookie } from '../../constants/cookie';
 import * as Icon from '../../assets/icons';
+import { APP_ENV } from '../../constants/config';
 
 const schema = yup
   .object({
@@ -60,11 +61,11 @@ export default function Auth({ history }) {
   };
 
   const loginGoogleHandler = async () => {
-    const googleTab = window.open(
-      'http://localhost:5000/api/v1/auth/google',
-      '_blank',
-      'width:400,height:500'
-    );
+    const googleURI =
+      APP_ENV === 'development'
+        ? 'http://localhost:5000/api/v1/auth/google'
+        : 'https://checkitnowz.herokuapp.com/api/v1/auth/google';
+    const googleTab = window.open(googleURI, '_blank', 'width:400,height:500');
     const getGG = setInterval(async () => {
       if (getCookie('user_name') !== undefined) {
         await window.location.reload();
