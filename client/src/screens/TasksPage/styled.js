@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { Input, Dropdown, Modal, Checkbox, Row, Col } from 'antd';
+import { Collapse } from 'antd';
 
 export const Wrapper = styled.form`
   min-height: 100vh;
@@ -140,7 +141,7 @@ export const InputFiled = styled(Input)`
 `;
 export const SearchIcon = styled.img`
   position: absolute;
-  top: 14px;
+  top: 11px;
   right: 16px;
 `;
 
@@ -239,4 +240,17 @@ export const Image = styled.img`
   position: absolute;
   right: 20px;
   cursor: pointer;
+`;
+export const CollapseField = styled(Collapse)`
+  background-color: #f0f8ff00;
+  margin-top: -15px;
+  border: none !important;
+
+  .ant-collapse-item {
+    border: none !important;
+  }
+  .ant-collapse-header {
+    color: #6f6a6a !important;
+    padding: 10px 0 !important;
+  }
 `;

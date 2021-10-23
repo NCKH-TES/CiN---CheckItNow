@@ -56,6 +56,7 @@ const AddTask = (props) => {
             name="task_name"
             rules={[
               { required: true, message: 'Please input your task name!' },
+              { max: 40, message: 'Task name is too long' },
             ]}
           >
             <S.Name placeholder="Name of the tasks..." />

@@ -17,6 +17,8 @@ import { getListTask } from '../../store/slices/taskSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import task from '../../services/apis/task';
+import { Collapse } from 'antd';
+const { Panel } = Collapse;
 
 export default function Index({ history }) {
   const dispatch = useDispatch();
@@ -171,7 +173,7 @@ export default function Index({ history }) {
               placeholder="Search task"
               $height={50}
             />
-            <S.SearchIcon src={Icon.search} />
+            <S.SearchIcon style={{}} src={Icon.search} />
           </div>
           <S.Option>
             <div style={{ display: 'flex' }}>
@@ -230,7 +232,21 @@ export default function Index({ history }) {
                   >
                     {item?.task_name}
                   </S.TextTask>
-                  <S.TextTask $isSmall>{item?.task_description}</S.TextTask>
+                  {item?.task_description.length > 120 ? (
+                    <S.CollapseField defaultActiveKey={['0']}>
+                      <Panel
+                        header={`${item?.task_description.substr(0, 20)} . . .`}
+                        key="1"
+                      >
+                        <S.TextTask $isSmall>
+                          {item?.task_description}
+                        </S.TextTask>
+                      </Panel>
+                    </S.CollapseField>
+                  ) : (
+                    <S.TextTask $isSmall>{item?.task_description}</S.TextTask>
+                  )}
+
                   <div style={{ display: 'flex', alignItems: 'center' }}>
                     <img src={lock} alt="" />
                     <S.TextTime
@@ -238,7 +254,7 @@ export default function Index({ history }) {
                         item?.priority === 'low'
                           ? '#20d408'
                           : item?.priority === 'medium'
-                          ? '#dfab03'
+                          ? '#FC8E0D'
                           : '#ff0000'
                       }
                     >
@@ -306,6 +322,15 @@ export default function Index({ history }) {
           item={item}
         />
       )}
+
+      <div
+        style={{
+          marginTop: 30,
+          color: '#333333c4',
+        }}
+      >
+        © 2021 DAC. All rights reserved.
+      </div>
     </S.Wrapper>
   );
 }
