@@ -45,22 +45,25 @@ export const Wrapper = styled.form`
   @media  (max-width:768px) {
     padding: 40px 30px !important;
     .Content {
-      width: 100%;
+      width: 95%;
     }
   }
   ${'' /* mobile_low */}
   @media  (max-width:576px) {
+    .sc-jSgvzq {
+      padding: 25px 10px;
+      padding-bottom: 63px;
+    }
     .TypeSelect button {
       font-size: 16px !important;
     }
     .sc-dQoVA {
       flex-wrap: wrap;
+      justify-content: space-around;
     }
     .sc-crrszt {
-      margin-right: 15px !important;
-    }
-    .sc-dQoVA {
-      justify-content: space-around;
+      margin: 0;
+      padding: 8px;
     }
     padding: 40px 10px !important;
   }
@@ -101,7 +104,7 @@ export const Content = styled(Row)`
 
 export const Left = styled(Col)`
   background-color: #f3f5fa;
-  padding: 25px 40px;
+  padding: 25px 40px 70px 40px;
   border-radius: 25px;
   position: relative;
 `;

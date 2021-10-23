@@ -262,7 +262,7 @@ export default function Index({ history }) {
               justifyContent: 'flex-end',
               position: 'absolute',
               right: '40px',
-              bottom: '20px',
+              bottom: '15px',
             }}
           >
             <Pagination
