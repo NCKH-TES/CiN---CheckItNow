@@ -14,6 +14,7 @@ import Loader from '../../components/Loader';
 import { message } from 'antd';
 import { Alert } from 'antd';
 import { getCookie } from '../../constants/cookie';
+import { GOOGLE_API } from '../../constants/config';
 import * as Icon from '../../assets/icons';
 import { APP_ENV } from '../../constants/config';
 

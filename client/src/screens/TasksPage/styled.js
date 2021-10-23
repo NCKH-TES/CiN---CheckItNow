@@ -1,10 +1,72 @@
 import styled, { css } from 'styled-components';
-import { Input, Dropdown, Modal, Checkbox } from 'antd';
+import { Input, Dropdown, Modal, Checkbox, Row, Col } from 'antd';
 
 export const Wrapper = styled.form`
   min-height: 100vh;
   background-color: #e4e7f2;
   padding: 40px 90px;
+
+  ${'' /* destop */}
+  @media (min-width: 1201px) {
+    .sc-iBPTik,
+    .sc-fubCzh {
+      margin-left: 120px;
+    }
+  }
+  ${'' /* destop_low */}
+  @media  (max-width:1380px) {
+    .sc-jSgvzq {
+      padding-bottom: 65px;
+    }
+    .TypeSelect button {
+      font-size: 16px;
+    }
+    .sc-iBPTik,
+    .sc-fubCzh {
+      margin-left: 80px !important;
+    }
+  }
+  ${'' /* table */}
+  @media  (max-width:1200px) {
+    .sc-iBPTik,
+    .sc-fubCzh {
+      margin-left: 0px !important;
+      margin-top: 20px !important;
+    }
+    .TypeSelect button {
+      font-size: 20px !important;
+    }
+    .Content {
+      width: 450px;
+      margin: auto;
+    }
+  }
+  ${'' /* mobile */}
+  @media  (max-width:768px) {
+    padding: 40px 30px !important;
+    .Content {
+      width: 95%;
+    }
+  }
+  ${'' /* mobile_low */}
+  @media  (max-width:576px) {
+    .sc-jSgvzq {
+      padding: 25px 10px;
+      padding-bottom: 63px;
+    }
+    .TypeSelect button {
+      font-size: 16px !important;
+    }
+    .sc-dQoVA {
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+    .sc-crrszt {
+      margin: 0;
+      padding: 8px;
+    }
+    padding: 40px 10px !important;
+  }
 `;
 
 export const Header = styled.div`
@@ -35,26 +97,21 @@ export const Text = styled.span`
     `}
 `;
 
-export const Content = styled.div`
+export const Content = styled(Row)`
   display: flex;
   margin-top: 20px;
-  height: 700px;
 `;
 
-export const Left = styled.div`
-  flex-basis: 65%;
+export const Left = styled(Col)`
   background-color: #f3f5fa;
-  padding: 25px 40px;
-  margin-right: 90px;
+  padding: 25px 40px 70px 40px;
   border-radius: 25px;
   position: relative;
 `;
 
-export const Right = styled.div`
-  flex-basis: 35%;
+export const Right = styled(Col)`
   display: flex;
   flex-direction: column;
-  padding: 0px 20px;
 `;
 
 export const Time = styled.div`
