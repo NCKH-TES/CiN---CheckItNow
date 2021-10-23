@@ -146,6 +146,15 @@ export default function Auth({ history }) {
         handleCancel={handleCancel}
         loginGoogleHandler={loginGoogleHandler}
       />
+
+      <div
+        style={{
+          marginTop: 30,
+          color: '#333333c4',
+        }}
+      >
+        © 2021 DAC. All rights reserved.
+      </div>
     </S.Wrapper>
   );
 }
