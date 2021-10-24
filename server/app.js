@@ -22,6 +22,7 @@ sequelize
 
 //PARSE AND READ BODY
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 //DEV LOGGING
 app.use(morgan('dev'));
 //CREATE NEW SESSION
