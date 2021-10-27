@@ -14,6 +14,7 @@ const remind = catchAsync(async () => {
   const list = await users.map((value) => {
     const obj = {
       email: value.email,
+      name: value.user_name,
       tasks: [],
     };
     value.Tasks.forEach((value) => {
@@ -34,15 +35,20 @@ const remind = catchAsync(async () => {
       //HTML text
       const htmlText = value.tasks
         .map((task) => {
-          return `<li>${task}</li>`;
+          return `<li><p style="size: large">◯ ${task}</p></li>`;
         })
         .join('');
       //options for email
       const options = {
         email: value.email,
-        subject: `REMINDER TO COMPLETE YOUR TASKS`,
-        text: `You have ${value.tasks.length} tasks to complete today`,
-        html: `<strong>Tasks</strong><br><ul>${htmlText}</ul>`,
+        subject: `🙋CHECK YOUR TASKS TODAY!`,
+        // text: `You have ${value.tasks.length} tasks to complete today`,
+        html: `Hi <strong>${value.name}</strong>,<br>
+        <p>You have <strong>${value.tasks.length} tasks</strong> waiting to be tackled. Let's do this 💪</p><br>
+        <ul style="list-style: none">${htmlText}</ul><br><br>
+        <a href="https://checkitnowz.herokuapp.com/" style="text-decoration: none">→ Reschedule your tasks</a><br>
+        <p>Have a good day 🙂,</p>
+        <p>DAC Team</p>`,
       };
       //send Email
       await sendEmail(options);
