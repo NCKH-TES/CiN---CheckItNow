@@ -36,13 +36,12 @@ const addButton = useRef(null)
       toast('You need to fill in the Date and Priority');
     } else {
       addButton.current.setAttribute("disabled",true)
-      setTimeout(() => {
-        task.createTaskApi({
-          ...values,
-          task_due: `${date} ${time}`,
-          priority,
-          completed: false,
-        })
+      task.createTaskApi({
+        ...values,
+        task_due: `${date} ${time}`,
+        priority,
+        completed: false,
+      })
         .then(() => {
           addButton.current.setAttribute("disabled", false)
           dispatch(getListTask({ page: props.page, perPage: props.perPage }));
@@ -53,8 +52,6 @@ const addButton = useRef(null)
         .catch((err) => {
           toast('Failure...');
         });
-      }, 1000);
-
     }
   };
 
