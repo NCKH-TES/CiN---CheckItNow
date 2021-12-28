@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Form } from 'antd';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRef } from 'react';
 
 const { Option } = S.SelectFiled;
 
@@ -17,7 +18,7 @@ const UpdateTask = (props) => {
   const [time, setTime] = useState('');
   const [priority, setPriority] = useState('');
   const [form] = Form.useForm();
-
+  const editButton = useRef(null)
   function onChangeDate(date, dateString) {
     setDate(dateString);
   }
@@ -30,6 +31,7 @@ const UpdateTask = (props) => {
   }
 
   const onFinish = async (values) => {
+    editButton.current.setAttribute("disabled",true)
     task
       .updateTaskApi(props?.item?.task_id, {
         ...values,
@@ -41,6 +43,7 @@ const UpdateTask = (props) => {
         dispatch(getListTask({ page: props.page, perPage: props.perPage }));
         handleCancel();
         toast('Successfully!');
+        editButton.current.setAttribute("disabled",true)
       })
       .catch((err) => {
         toast('Failure...');
@@ -102,6 +105,7 @@ const UpdateTask = (props) => {
             type="primary"
             htmlType="submit"
             style={{ marginLeft: '10px' }}
+            ref={editButton}
           >
             Update task
           </S.ButtonFiled>
