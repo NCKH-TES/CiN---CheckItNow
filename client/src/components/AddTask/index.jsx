@@ -32,7 +32,7 @@ const AddTask = (props) => {
   const onFinish = async (values) => {
     console.log(values, date,time, priority);
     if (date === '' || priority === '') {
-      toast('You need fill date and priority');
+      toast('You need to fill in the Date and priority');
     } else {
       console.log("ADD")
       task
