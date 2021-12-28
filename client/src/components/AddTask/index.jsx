@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Form } from 'antd';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRef } from 'react';
 
 const { Option } = S.SelectFiled;
 
@@ -17,7 +18,7 @@ const AddTask = (props) => {
   const [time, setTime] = useState('00:00:00');
   const [priority, setPriority] = useState('');
   const [form] = Form.useForm();
-
+const addButton = useRef(null)
   function onChangeDate(date, dateString) {
     setDate(dateString);
   }
@@ -34,15 +35,16 @@ const AddTask = (props) => {
     if (date === '' || priority === '') {
       toast('You need to fill in the Date and priority');
     } else {
-      console.log("ADD")
-      task
-        .createTaskApi({
+      addButton.current.setAttribute("disabled",true)
+      setTimeout(() => {
+        task.createTaskApi({
           ...values,
           task_due: `${date} ${time}`,
           priority,
           completed: false,
         })
         .then(() => {
+          addButton.current.setAttribute("disabled", false)
           dispatch(getListTask({ page: props.page, perPage: props.perPage }));
           handleCancel();
           toast('Successfully!');
@@ -51,6 +53,8 @@ const AddTask = (props) => {
         .catch((err) => {
           toast('Failure...');
         });
+      }, 1000);
+
     }
   };
 
@@ -113,6 +117,7 @@ const AddTask = (props) => {
             type="primary"
             htmlType="submit"
             style={{ marginLeft: '10px' }}
+            ref={addButton}
           >
             Add task
           </S.ButtonFiled>
