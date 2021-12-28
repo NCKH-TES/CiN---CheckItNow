@@ -14,7 +14,7 @@ const AddTask = (props) => {
   const dispatch = useDispatch();
   const { handleCancel, isModalVisible } = props;
   const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
+  const [time, setTime] = useState('00:00:00');
   const [priority, setPriority] = useState('');
   const [form] = Form.useForm();
 
@@ -26,26 +26,32 @@ const AddTask = (props) => {
   }
 
   function handleSelectPriority(value) {
-    setPriority(value);
+      setPriority(value);
   }
 
   const onFinish = async (values) => {
-    task
-      .createTaskApi({
-        ...values,
-        task_due: `${date} ${time}`,
-        priority,
-        completed: false,
-      })
-      .then(() => {
-        dispatch(getListTask({ page: props.page, perPage: props.perPage }));
-        handleCancel();
-        toast('Successfully!');
-        form.resetFields();
-      })
-      .catch((err) => {
-        toast('Failure...');
-      });
+    console.log(values, date,time, priority);
+    if (date === '' || priority === '') {
+      toast('You need fill date and priority');
+    } else {
+      console.log("ADD")
+      task
+        .createTaskApi({
+          ...values,
+          task_due: `${date} ${time}`,
+          priority,
+          completed: false,
+        })
+        .then(() => {
+          dispatch(getListTask({ page: props.page, perPage: props.perPage }));
+          handleCancel();
+          toast('Successfully!');
+          form.resetFields();
+        })
+        .catch((err) => {
+          toast('Failure...');
+        });
+    }
   };
 
   return (
@@ -67,7 +73,7 @@ const AddTask = (props) => {
               margin: '0 20px ',
             }}
           ></div>
-          <S.FormAntd.Item name="task_description">
+          <S.FormAntd.Item name="task_description" initialValue=''>
             <S.Describe placeholder="Description..." />
           </S.FormAntd.Item>
 
