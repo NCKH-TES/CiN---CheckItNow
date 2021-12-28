@@ -33,7 +33,7 @@ const addButton = useRef(null)
   const onFinish = async (values) => {
     console.log(values, date,time, priority);
     if (date === '' || priority === '') {
-      toast('You need to fill in the Date and priority');
+      toast('You need to fill in the Date and Priority');
     } else {
       addButton.current.setAttribute("disabled",true)
       setTimeout(() => {
