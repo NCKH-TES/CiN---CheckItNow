@@ -46,9 +46,8 @@ const UpdateTask = (props) => {
         editButton.current.setAttribute("disabled",true)
       })
       .catch((err) => {
-        toast('Failure...');
+        // toast('Failure...');
       });
-    // console.log(values, date, time, props?.item?.priority);
   };
 
   return (
