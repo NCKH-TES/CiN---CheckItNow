@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Alert } from 'antd';
 const schema = yup
   .object({
-    user_name: yup.string().required(),
+    user_name: yup.string().required().max(40,'user name is so long'),
     agreeService: yup
       .bool()
       .oneOf([true], 'Acceptance of terms & policies is required'),
