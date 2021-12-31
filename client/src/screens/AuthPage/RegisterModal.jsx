@@ -16,7 +16,7 @@ const schema = yup
     agreeService: yup
       .bool()
       .oneOf([true], 'Acceptance of terms & policies is required'),
-    email: yup.string().email('You must enter your email').required(),
+    email: yup.string().email('You must enter your email').required().max(30,'Email name must be between 6 - 30 characters').min(6,'Email name must be between 6 - 30 characters'),
     password: yup.string().required().min(5, 'Password at least 5 characters'),
     re_password: yup
       .string('')
@@ -38,6 +38,7 @@ export default function Auth(props) {
     resolver: yupResolver(schema),
   });
   const onSubmit = async (data) => {
+    console.log(data)
     const registerDone = await dispatch(registerApi(data));
     if (!registerDone.error) {
       console.log(registerDone);
