@@ -22,7 +22,7 @@ passport.use(
       clientSecret: process.env.GOOGLE_SECRET,
       callbackURL:
         process.env.NODE_ENV === 'prod'
-          ? 'https://checkitnowz.herokuapp.com/api/v1/auth/google/callback'
+          ? process.env.SERVER_PROD_GOOGLE_AUTH
           : 'http://localhost:5000/api/v1/auth/google/callback',
       passReqToCallback: true,
     },

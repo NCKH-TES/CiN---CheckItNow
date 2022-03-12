@@ -6,7 +6,7 @@ const request = axios.create({
   baseURL:
     APP_ENV === 'development'
       ? SERVER_API
-      : 'https://checkitnowz.herokuapp.com/api/v1/',
+      : process.env.REACT_APP_SERVER_API,
   headers: {
     'content-type': 'application/json',
   },

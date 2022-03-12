@@ -46,7 +46,7 @@ const remind = catchAsync(async () => {
         html: `Hi <strong>${value.name}</strong>,<br>
         <p>You have <strong>${value.tasks.length} tasks</strong> waiting to be tackled. Let's do this 💪</p><br>
         <ul style="list-style: none">${htmlText}</ul><br><br>
-        <a href="https://checkitnowz.herokuapp.com/" style="text-decoration: none">→ Reschedule your tasks</a><br>
+        <a href="${process.env.SERVER_PROD}" style="text-decoration: none">→ Reschedule your tasks</a><br>
         <p>Have a good day 🙂,</p>
         <p>DAC Team</p>`,
       };
