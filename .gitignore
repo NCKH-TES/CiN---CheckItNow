@@ -8,7 +8,7 @@
 client/node_modules
 client/.pnp
 client/.pnp.js
-
+client/src/.env.local
 # testing
 client/coverage
 
