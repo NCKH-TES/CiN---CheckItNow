@@ -14,9 +14,8 @@ import Loader from '../../components/Loader';
 import { message } from 'antd';
 import { Alert } from 'antd';
 import { getCookie } from '../../constants/cookie';
-import { GOOGLE_API } from '../../constants/config';
+import { APP_SERVER_GOOGLE } from '../../constants/config';
 import * as Icon from '../../assets/icons';
-import { APP_ENV } from '../../constants/config';
 
 const schema = yup
   .object({
@@ -62,7 +61,7 @@ export default function Auth({ history }) {
   };
 
   const loginGoogleHandler = async () => {
-    const googleURI = process.env.SERVER_LOCAL_GOOGLE_AUTH;
+    const googleURI = APP_SERVER_GOOGLE;
     const googleTab = window.open(googleURI, '_blank', 'width:400,height:500');
     const getGG = setInterval(async () => {
       if (getCookie('user_name') !== undefined) {
