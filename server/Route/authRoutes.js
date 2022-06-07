@@ -20,10 +20,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
-      callbackURL:
-        process.env.NODE_ENV === 'prod'
-          ? process.env.SERVER_PROD_GOOGLE_AUTH
-          : 'http://localhost:5000/api/v1/auth/google/callback',
+      callbackURL:process.env.SERVER_LOCAL_GOOGLE_AUTH_CALLBACK,
       passReqToCallback: true,
     },
     function (request, accessToken, refreshToken, profile, done) {
@@ -43,8 +40,8 @@ authRouter.get(
 authRouter.get(
   '/google/callback',
   passport.authenticate('google', {
-    successRedirect: '/api/v1/auth/success',
-    failureRedirect: '/api/v1/auth/error',
+    successRedirect: '/api/auth/success',
+    failureRedirect: '/api/auth/error',
   })
 );
 

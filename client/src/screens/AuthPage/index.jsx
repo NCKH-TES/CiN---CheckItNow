@@ -62,10 +62,7 @@ export default function Auth({ history }) {
   };
 
   const loginGoogleHandler = async () => {
-    const googleURI =
-      APP_ENV === 'development'
-        ? 'http://localhost:5000/api/v1/auth/google'
-        : process.env.REACT_APP_SERVER_PROD_GOOGLE;
+    const googleURI = process.env.SERVER_LOCAL_GOOGLE_AUTH;
     const googleTab = window.open(googleURI, '_blank', 'width:400,height:500');
     const getGG = setInterval(async () => {
       if (getCookie('user_name') !== undefined) {

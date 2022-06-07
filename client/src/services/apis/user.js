@@ -1,5 +1,4 @@
 import request from '../request';
-import { SERVER_API } from '../../constants/config';
 
 const UserApi = {
   login: (info) => {

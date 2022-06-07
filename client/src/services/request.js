@@ -1,12 +1,10 @@
 import axios from 'axios';
 import queryString from 'query-string';
-import { APP_ENV, SERVER_API } from '../constants/config';
+import { APP_SERVER_API } from '../constants/config';
 import { getCookie } from '../constants/cookie';
+
 const request = axios.create({
-  baseURL:
-    APP_ENV === 'development'
-      ? SERVER_API
-      : process.env.REACT_APP_SERVER_API,
+  baseURL: APP_SERVER_API,
   headers: {
     'content-type': 'application/json',
   },
